@@ -9,7 +9,8 @@
 <meta property="og:title" content="How Meaning Sets">
 <meta property="og:description" content="An essay about where meaning settles in a mind, and why minds that settle it at different heights misread each other.">
 <meta property="og:type" content="article">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121519">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +18,25 @@
 <script>try{var t=localStorage.getItem("wms-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <style>
 :root {
+  --paper: #121519;
+  --raised: #1a1e23;
+  --ink: #c9cfd5;
+  --muted: #959da4;
+  --faint: #6f777e;
+  --rule: #252a30;
+  --line: #4c555d;
+  --accent: #9fb0bb;
+  --term: #93b6cc;
+  --scrim: rgba(0, 0, 0, 0.55);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.45);
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --measure: 33em;
+  --slow: 900ms;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
   --paper: #f3f4f4;
   --raised: #fbfbfb;
   --ink: #23272b;
@@ -28,43 +48,9 @@
   --term: #2f5a73;
   --scrim: rgba(28, 32, 36, 0.28);
   --shadow: 0 10px 30px rgba(30, 36, 42, 0.10), 0 1px 3px rgba(30, 36, 42, 0.08);
-  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --measure: 33em;
-  --slow: 900ms;
-  --ease: cubic-bezier(.22, .61, .36, 1);
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #15181b;
-    --raised: #1d2125;
-    --ink: #dcdfe0;
-    --muted: #a0a7ac;
-    --faint: #7a8288;
-    --rule: #2b3035;
-    --line: #586269;
-    --accent: #aebbc3;
-    --term: #9cc0d6;
-    --scrim: rgba(0, 0, 0, 0.5);
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.4);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #15181b;
-  --raised: #1d2125;
-  --ink: #dcdfe0;
-  --muted: #a0a7ac;
-  --faint: #7a8288;
-  --rule: #2b3035;
-  --line: #586269;
-  --accent: #aebbc3;
-  --term: #9cc0d6;
-  --scrim: rgba(0, 0, 0, 0.5);
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.4);
-  color-scheme: dark;
-}
+.draft-note { margin: 0 0 2.4rem; max-width: 34em; font-size: 0.82rem; line-height: 1.5; color: var(--faint); }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 2rem; }
@@ -127,7 +113,7 @@ h1 {
   font: 400 0.9rem/1.5 var(--sans);
   color: var(--muted);
   letter-spacing: 0.01em;
-  margin: 0 0 2.6rem;
+  margin: 0 0 0.6rem;
 }
 
 /* Version scale */
@@ -437,7 +423,7 @@ h1 {
         <button type="button" class="scale-stop" role="radio" data-version="story" aria-checked="true" tabindex="0"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set higher</span></button>
         <button type="button" class="scale-stop" role="radio" data-version="structure" aria-checked="false" tabindex="-1"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set lower</span></button>
       </div>
-    </div><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.4"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg><span class="theme-label">Dark</span></button></div>
+    </div><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to light theme"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.4"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg><span class="theme-label">Light</span></button></div>
 </nav>
 
 <div class="sheet-scrim" id="sheet-scrim" hidden></div>
@@ -457,7 +443,7 @@ h1 {
         <button type="button" class="scale-stop" role="radio" data-version="story" aria-checked="true" tabindex="0"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set higher</span></button>
         <button type="button" class="scale-stop" role="radio" data-version="structure" aria-checked="false" tabindex="-1"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set lower</span></button>
       </div>
-    </div><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.4"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg><span class="theme-label">Dark</span></button></div>
+    </div><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to light theme"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.4"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg><span class="theme-label">Light</span></button></div>
 </div>
 
 <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
@@ -466,7 +452,8 @@ h1 {
   <header class="masthead">
     <canvas class="settle" id="settle" aria-hidden="true"></canvas>
     <h1>How Meaning Sets</h1>
-    <p class="standfirst">A draft essay, shared for feedback</p>
+    <p class="standfirst">Shared for feedback</p>
+    <p class="draft-note">This is still a draft. A few passages are placeholders where I haven't found the right wording yet or finished turning my notes into sentences, so I had AI fill those in for now.</p>
     <div class="scale" id="scale" data-version="story">
       <div class="scale-track" role="radiogroup" aria-label="Where this version sets">
         <span class="scale-line" aria-hidden="true"></span>
@@ -584,7 +571,7 @@ h1 {
 <h2 id="h-back-to-the-start"><span class="num mark" aria-hidden="true"></span>Back to the start</h2>
 <p data-b="0">Maven and Shiloh aren’t a bad match. Neither is careless or oversensitive. They stand at different <span class="nobr"><button type="button" class="term" data-key="height" aria-expanded="false">heights</button>,</span> each reading the other through <span class="nobr"><button type="button" class="term" data-key="units" aria-expanded="false">units</button></span> <span class="nobr"><button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button></span> somewhere else, and each, in their own way, is the other’s clock.</p>
 <p data-b="1">Shiloh doesn’t need to hear the clock as Maven does. He needs to believe her, and then, harder, to see that the clock, the gear on the table and the unexpected guests are one thing: that first week in a foreign country, happening at home. Both of them feel the intrusion, but only Maven can see what’s causing it, so most of the translation falls to her. She doesn’t need perfect words, only good enough ones, from someone willing to meet her partway.</p>
-<p data-b="2">This piece will get crystallized too. The easy version is “Mavens and Shilohs”: two kinds of people, one deep and one shallow, or one difficult and one easy. That would be <span class="nobr"><button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">vicious abstraction</button>,</span> applied to the model itself. The names are positions on one scale, not kinds of people. Everyone stands lower somewhere, usually in something they’ve spent years on. Some people stand there almost everywhere.</p>
+<p data-b="2">This piece will get crystallized too. The easy version is “Mavens and Shilohs”: two kinds of people, one deep and one shallow, or one difficult and one easy. That would be <span class="nobr"><button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">vicious abstraction</button>,</span> applied to the model itself. The names are positions on one scale, not kinds of people. Every point on that scale costs something and catches something the others miss. The hard part is noticing where you’re standing.</p>
 <p data-b="3">An idea about how hard meaning is to share is itself hard to share, for the reasons it describes.</p>
 </section>
   </article>
@@ -856,7 +843,7 @@ var WMSMotif = (function () {
   var sysDark = window.matchMedia("(prefers-color-scheme: dark)");
   function effectiveTheme() {
     var t = doc.getAttribute("data-theme");
-    return t || (sysDark.matches ? "dark" : "light");
+    return t || "dark";
   }
   var themeListeners = [];
   function syncThemeButtons() {
