@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How Meaning Sets</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="An essay about where meaning settles in a mind, and why minds that settle it at different heights misread each other.">
+<meta property="og:title" content="How Meaning Sets">
+<meta property="og:description" content="An essay about where meaning settles in a mind, and why minds that settle it at different heights misread each other.">
+<meta property="og:type" content="article">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("wms-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<style>
+:root {
+  --paper: #f3f4f4;
+  --raised: #fbfbfb;
+  --ink: #23272b;
+  --muted: #586066;
+  --faint: #7f878d;
+  --rule: #d6dadc;
+  --line: #a3abb1;
+  --accent: #46555f;
+  --scrim: rgba(28, 32, 36, 0.28);
+  --shadow: 0 10px 30px rgba(30, 36, 42, 0.10), 0 1px 3px rgba(30, 36, 42, 0.08);
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --measure: 34em;
+  --slow: 900ms;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15181b;
+    --raised: #1d2125;
+    --ink: #dcdfe0;
+    --muted: #a0a7ac;
+    --faint: #7a8288;
+    --rule: #2b3035;
+    --line: #56606800;
+    --line: #586269;
+    --accent: #aebbc3;
+    --scrim: rgba(0, 0, 0, 0.5);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15181b;
+  --raised: #1d2125;
+  --ink: #dcdfe0;
+  --muted: #a0a7ac;
+  --faint: #7a8288;
+  --rule: #2b3035;
+  --line: #586269;
+  --accent: #aebbc3;
+  --scrim: rgba(0, 0, 0, 0.5);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 2rem; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+::selection { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip {
+  position: absolute; left: 1rem; top: -3rem; z-index: 50;
+  font: 500 0.85rem/1 var(--sans); color: var(--ink); background: var(--raised);
+  padding: 0.7rem 0.9rem; border: 1px solid var(--rule); border-radius: 6px;
+}
+.skip:focus { top: 1rem; }
+button { font: inherit; color: inherit; }
+
+/* Column */
+main { outline: none; }
+.masthead, .essay, .colophon {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  box-sizing: content-box;
+}
+
+/* Masthead */
+.masthead { position: relative; padding-top: clamp(5rem, 18vh, 10rem); padding-bottom: 3.5rem; }
+.settle {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+@media (min-width: 900px) {
+  .settle { left: -6rem; width: calc(100% + 12rem); }
+}
+.masthead > :not(.settle) { position: relative; z-index: 1; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 340;
+  font-size: clamp(2.6rem, 6.4vw, 3.9rem);
+  line-height: 1.04;
+  letter-spacing: -0.018em;
+  margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+.standfirst {
+  font: 400 0.9rem/1.5 var(--sans);
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  margin: 0 0 2.6rem;
+}
+
+/* Version scale */
+.scale { font-family: var(--sans); }
+.scale-track {
+  position: relative; display: grid; grid-template-columns: 1fr 1fr;
+  width: min(19rem, 100%);
+}
+.scale-line {
+  position: absolute; top: 9px; left: 5px; right: 5px; height: 1px; background: var(--rule);
+}
+.scale-thumb {
+  position: absolute; top: 4px; left: 0; width: 11px; height: 11px; border-radius: 50%;
+  background: var(--accent);
+  transition: left var(--slow) var(--ease);
+  z-index: 2; pointer-events: none;
+}
+.scale[data-version="structure"] .scale-thumb { left: calc(100% - 11px); }
+.scale-stop {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  background: none; border: 0; padding: 0 0 0.3rem; cursor: pointer; text-align: left;
+}
+.scale-stop:last-child { align-items: flex-end; text-align: right; }
+.scale-dot {
+  width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--paper); margin: 4px 0 0.6rem;
+}
+.scale-label { font-size: 0.82rem; font-weight: 500; color: var(--ink); letter-spacing: 0.01em; }
+.scale-sub { font-size: 0.76rem; color: var(--faint); }
+.scale-stop[aria-disabled="true"] { cursor: default; }
+.scale-stop[aria-disabled="true"] .scale-label { color: var(--muted); font-weight: 400; }
+.scale-stop:hover .scale-dot { border-color: var(--accent); }
+.scale-note {
+  font-size: 0.8rem; line-height: 1.5; color: var(--muted); margin: 0.9rem 0 0;
+  max-width: 24rem; min-height: 1.2em;
+}
+.scale-note:empty { display: none; }
+
+.resume {
+  margin-top: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;
+  font: 400 0.82rem/1 var(--sans); color: var(--muted);
+  background: transparent; border: 1px solid var(--rule); border-radius: 999px;
+  padding: 0.6rem 0.95rem; cursor: pointer;
+  transition: color 200ms, border-color 200ms;
+}
+.resume:hover { color: var(--ink); border-color: var(--line); }
+.resume[hidden] { display: none; }
+
+/* Essay */
+.essay section { position: relative; }
+.essay h2 {
+  position: relative;
+  font: 500 1.02rem/1.35 var(--sans);
+  letter-spacing: 0.005em;
+  color: var(--ink);
+  margin: 0 0 1.35rem;
+  text-wrap: balance;
+}
+.num {
+  position: absolute; left: -2.6rem; top: 0.05em; width: 1.6rem; text-align: right;
+  font: 400 0.85rem/1.6 var(--sans); color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.num.mark::after {
+  content: ""; position: absolute; right: 0.2rem; top: 0.6em; width: 5px; height: 5px;
+  border-radius: 50%; border: 1px solid var(--faint);
+}
+.essay p {
+  margin: 0 0 1.15em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hanging-punctuation: first;
+  text-wrap: pretty;
+  orphans: 2; widows: 2;
+}
+.essay ul, .essay ol { margin: 0 0 1.15em; padding-left: 1.3em; }
+.essay li { margin: 0 0 0.45em; padding-left: 0.2em; hyphens: auto; -webkit-hyphens: auto; text-wrap: pretty; }
+.essay ul li::marker { color: var(--faint); }
+.essay ol li::marker { color: var(--faint); font: 400 0.8em var(--sans); }
+.essay strong { font-weight: 560; }
+.essay { transition: opacity 420ms var(--ease), filter 420ms var(--ease); }
+.essays.is-dissolving .essay { opacity: 0; filter: blur(3px); }
+.lead { font-variant-caps: all-small-caps; letter-spacing: 0.04em; font-size: 1.04em; }
+.essay em { font-style: italic; }
+
+.divider { display: flex; justify-content: center; margin: 3.4rem 0 3.2rem; }
+.web path { stroke: var(--line); stroke-width: 0.6; fill: none; opacity: 0.8; }
+.web circle { fill: var(--faint); }
+
+/* Terms */
+.term {
+  display: inline; background: none; border: 0; padding: 0; margin: 0;
+  font: inherit; color: inherit; letter-spacing: inherit; line-height: inherit;
+  cursor: help; text-align: inherit;
+  text-decoration: underline; text-decoration-style: dotted;
+  text-decoration-color: var(--line); text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  -webkit-hyphens: manual; hyphens: manual;
+  transition: text-decoration-color 200ms;
+}
+.term:hover, .term[aria-expanded="true"] {
+  text-decoration-style: solid; text-decoration-color: var(--accent);
+}
+.tip {
+  position: absolute; z-index: 40; max-width: min(19rem, calc(100vw - 2rem));
+  background: var(--raised); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 8px; box-shadow: var(--shadow);
+  padding: 0.75rem 0.9rem 0.8rem;
+  font: 400 0.84rem/1.5 var(--sans);
+  opacity: 0; transform: translateY(3px);
+  transition: opacity 180ms var(--ease), transform 180ms var(--ease);
+}
+.tip.is-open { opacity: 1; transform: none; }
+.tip[hidden] { display: none; }
+.tip-label { display: block; font-weight: 500; margin-bottom: 0.2rem; letter-spacing: 0.005em; }
+.tip-def { display: block; color: var(--muted); }
+
+/* Colophon */
+.colophon {
+  padding-top: 3rem; padding-bottom: 6rem; margin-top: 3rem;
+  font: 400 0.8rem/1.5 var(--sans); color: var(--faint); text-align: center;
+}
+.colophon p { margin: 0.9rem 0 0; }
+
+/* Section map, shared */
+.map { list-style: none; margin: 0; padding: 0; }
+.map a {
+  display: flex; align-items: center; height: 26px;
+  font: 400 0.78rem/1.2 var(--sans); color: var(--faint); text-decoration: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: color 300ms;
+}
+.map a:hover { color: var(--ink); }
+.map li.is-read a { color: var(--muted); }
+.map a[aria-current="location"] { color: var(--ink); }
+.map .map-num { width: 1.3rem; flex: none; color: var(--faint); font-variant-numeric: tabular-nums; }
+.lattice { flex: none; overflow: visible; }
+.lattice .edge { stroke: var(--line); stroke-width: 0.6; fill: none; opacity: 0; transition: opacity var(--slow) var(--ease); }
+.lattice .edge.on { opacity: 0.75; }
+.lattice .node {
+  fill: var(--paper); stroke: var(--line); stroke-width: 1;
+  transition: transform var(--slow) var(--ease), fill var(--slow), stroke var(--slow);
+}
+.lattice .node.read { fill: var(--muted); stroke: var(--muted); }
+.lattice .node.current { fill: var(--accent); stroke: var(--accent); }
+.lattice .edge.flash { animation: flash 1400ms var(--ease) both; }
+@keyframes flash { 0% { opacity: 0.75; } 35% { opacity: 1; stroke: var(--accent); stroke-width: 1; } 100% { opacity: 0.75; } }
+
+/* Rail, wide screens */
+.rail {
+  position: fixed; left: 0; top: 0; bottom: 0; width: 15.5rem; z-index: 20;
+  display: none; flex-direction: column; justify-content: center;
+  padding: 2rem 1.25rem 2rem 1.6rem;
+  opacity: 0; transition: opacity 600ms var(--ease);
+}
+.rail.is-visible { opacity: 1; }
+.rail-inner { display: flex; gap: 0.7rem; }
+.rail-foot { position: absolute; left: 1.6rem; right: 1.25rem; bottom: 1.6rem; display: flex; flex-direction: column; gap: 1.1rem; align-items: flex-start; }
+.scale-mini .scale-track { width: 10.5rem; }
+.scale-mini .scale-label { font-size: 0.72rem; font-weight: 400; color: var(--faint); }
+.scale-mini .scale-stop[aria-checked="true"] .scale-label { color: var(--ink); }
+.scale-mini .scale-dot { margin-bottom: 0.4rem; }
+.sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  background: none; border: 0; padding: 0.35rem 0; cursor: pointer;
+  font: 400 0.76rem/1 var(--sans); color: var(--faint);
+}
+.theme-toggle:hover { color: var(--ink); }
+.theme-toggle svg { stroke: currentColor; fill: none; stroke-width: 1.1; }
+
+/* Bottom bar, narrow screens: within thumb reach */
+.topbar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 25;
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  transform: translateY(100%); transition: transform 400ms var(--ease);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.topbar.is-visible { transform: none; }
+.topbar-open {
+  display: flex; align-items: center; gap: 0.85rem; width: 100%; min-height: 52px;
+  padding: 0 calc(1.1rem + env(safe-area-inset-right)) 0 calc(1.1rem + env(safe-area-inset-left));
+  background: none; border: 0; cursor: pointer; text-align: left;
+}
+.topbar-title {
+  font: 400 0.86rem/1.2 var(--sans); color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1;
+}
+.topbar-open::after {
+  content: ""; flex: none; width: 7px; height: 7px; margin-right: 0.2rem;
+  border-left: 1.2px solid var(--faint); border-top: 1.2px solid var(--faint);
+  transform: rotate(45deg) translate(2px, 2px);
+}
+.mini-lattice { flex: none; width: 72px; height: 18px; overflow: visible; }
+.topbar-progress { height: 1px; position: absolute; top: -1px; left: 0; right: 0; }
+.topbar-progress span {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--accent);
+  transition: width 200ms linear;
+}
+
+.sheet-scrim {
+  position: fixed; inset: 0; background: var(--scrim); z-index: 30;
+  opacity: 0; transition: opacity 250ms;
+}
+.sheet-scrim.is-open { opacity: 1; }
+.sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 31;
+  max-height: 82vh; overflow: auto;
+  background: var(--raised); border-top: 1px solid var(--rule);
+  border-radius: 14px 14px 0 0; box-shadow: var(--shadow);
+  padding: 0.6rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+  transform: translateY(100%); transition: transform 320ms var(--ease);
+}
+.sheet.is-open { transform: none; }
+.sheet[hidden], .sheet-scrim[hidden] { display: none; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; height: 44px; }
+.sheet-title { font: 500 0.82rem/1 var(--sans); color: var(--ink); }
+.sheet-close {
+  width: 40px; height: 40px; margin-right: -0.6rem; display: grid; place-items: center;
+  background: none; border: 0; cursor: pointer; color: var(--muted);
+}
+.sheet-close svg { stroke: currentColor; stroke-width: 1.3; }
+.sheet-body { display: flex; gap: 0.8rem; padding: 0.4rem 0 1rem; }
+.sheet .map a { height: 44px; font-size: 0.95rem; }
+.sheet .scale-stop { min-height: 44px; }
+.sheet .theme-toggle { min-height: 44px; padding: 0 0.2rem; }
+.sheet-foot { border-top: 1px solid var(--rule); padding-top: 0.9rem; }
+
+@media (min-width: 1180px) {
+  .rail { display: flex; }
+  .topbar { display: none; }
+}
+@media (max-width: 1179px) {
+  .num { position: static; display: block; width: auto; text-align: left; margin-bottom: 0.15rem; }
+  .num.mark { display: none; }
+}
+@media (max-width: 640px) {
+  body { font-size: 1.14rem; line-height: 1.6; }
+  .masthead, .essay, .colophon { padding-inline: 1.25rem; }
+  .masthead { padding-top: 4.5rem; padding-bottom: 2.6rem; }
+  .divider { margin: 2.6rem 0 2.4rem; }
+  .colophon { padding-bottom: calc(7rem + env(safe-area-inset-bottom)); }
+  .scale-stop { min-height: 48px; }
+  html { scroll-padding-top: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation: none !important; scroll-behavior: auto !important; }
+}
+@media print {
+  .rail, .topbar, .sheet, .sheet-scrim, .settle, .scale, .resume, .tip, .skip { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11.5pt; }
+  .term { text-decoration: none; }
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#text">Skip to the essay</a>
+
+<div class="topbar" id="topbar">
+  <button type="button" class="topbar-open" id="sheet-open" aria-haspopup="dialog" aria-controls="sheet" aria-expanded="false">
+    <svg class="lattice mini-lattice" id="mini-lattice" aria-hidden="true"></svg>
+    <span class="topbar-title" id="topbar-title">Intrusive, not louder</span>
+    <span class="visually-hidden">Open the section map</span>
+  </button>
+  <div class="topbar-progress" aria-hidden="true"><span id="topbar-bar"></span></div>
+</div>
+
+<nav class="rail" id="rail" aria-label="Sections">
+  <div class="rail-inner">
+    <svg class="lattice" id="rail-lattice" aria-hidden="true"></svg>
+    <ol class="map" id="rail-map"></ol>
+  </div>
+  <div class="rail-foot"><div class="scale scale-mini" data-version="story">
+      <div class="scale-track" role="radiogroup" aria-label="Where this version sets">
+        <span class="scale-line" aria-hidden="true"></span>
+        <span class="scale-thumb" aria-hidden="true"></span>
+        <button type="button" class="scale-stop" role="radio" data-version="story" aria-checked="true" tabindex="0"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set higher</span></button>
+        <button type="button" class="scale-stop" role="radio" data-version="structure" aria-checked="false" tabindex="-1"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set lower</span></button>
+      </div>
+    </div><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.4"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg><span class="theme-label">Dark</span></button></div>
+</nav>
+
+<div class="sheet-scrim" id="sheet-scrim" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Sections" hidden>
+  <div class="sheet-head">
+    <span class="sheet-title">Sections</span>
+    <button type="button" class="sheet-close" id="sheet-close" aria-label="Close the section map"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+  </div>
+  <div class="sheet-body">
+    <svg class="lattice" id="sheet-lattice" aria-hidden="true"></svg>
+    <ol class="map" id="sheet-map"></ol>
+  </div>
+  <div class="sheet-foot"><div class="scale scale-mini" data-version="story">
+      <div class="scale-track" role="radiogroup" aria-label="Where this version sets">
+        <span class="scale-line" aria-hidden="true"></span>
+        <span class="scale-thumb" aria-hidden="true"></span>
+        <button type="button" class="scale-stop" role="radio" data-version="story" aria-checked="true" tabindex="0"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set higher</span></button>
+        <button type="button" class="scale-stop" role="radio" data-version="structure" aria-checked="false" tabindex="-1"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set lower</span></button>
+      </div>
+    </div><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.4"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg><span class="theme-label">Dark</span></button></div>
+</div>
+
+<main id="text" tabindex="-1">
+  <header class="masthead">
+    <canvas class="settle" id="settle" aria-hidden="true"></canvas>
+    <h1>How Meaning Sets</h1>
+    <p class="standfirst">A draft essay, shared for feedback</p>
+    <div class="scale" id="scale" data-version="story">
+      <div class="scale-track" role="radiogroup" aria-label="Where this version sets">
+        <span class="scale-line" aria-hidden="true"></span>
+        <span class="scale-thumb" aria-hidden="true"></span>
+        <button type="button" class="scale-stop" role="radio" data-version="story" aria-checked="true" tabindex="0"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set higher</span><span class="scale-sub">Story</span></button>
+        <button type="button" class="scale-stop" role="radio" data-version="structure" aria-checked="false" tabindex="-1"><span class="scale-dot" aria-hidden="true"></span><span class="scale-label">Set lower</span><span class="scale-sub">Structure</span></button>
+      </div>
+      <p class="scale-note" id="scale-note" aria-live="polite">Told through Maven and Shiloh.</p>
+    </div>
+    <button type="button" class="resume" id="resume" hidden></button>
+  </header>
+
+  <div class="essays" id="essays">
+  <article class="essay" id="essay-story" data-version="story" lang="en-US">
+<section id="intrusive-not-louder" data-index="0" aria-labelledby="h-intrusive-not-louder">
+<h2 id="h-intrusive-not-louder"><span class="num mark" aria-hidden="true"></span>Intrusive, not louder</h2>
+<p data-b="0"><span class="lead">Maven and Shiloh share</span> a house. There’s a clock on the kitchen wall. Shiloh stopped hearing it the week they moved in. Months later, Maven still hears every tick.</p>
+<p data-b="1">The clock isn’t loud. It just won’t stay in the background. Every tick arrives as if it were new and asks to be dealt with. The word isn’t “louder.” It’s <button type="button" class="term" data-key="intrusive" aria-expanded="false">intrusive</button>.</p>
+<p data-b="2">That difference is the first sign of something broader: where a mind settles what comes in.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="how-things-crystallize" data-index="1" aria-labelledby="h-how-things-crystallize">
+<h2 id="h-how-things-crystallize"><span class="num" aria-hidden="true">1</span><span class="visually-hidden">Part 1: </span>How things crystallize</h2>
+<p data-b="0">When you’re learning to drive, every mirror check, pedal and turn signal is a separate decision, and it’s exhausting. A year later, “merge onto the highway” is one action. The pieces are still there, fused into a single <button type="button" class="term" data-key="units" aria-expanded="false">unit</button> you use without thinking.</p>
+<p data-b="1">Minds do this with everything. They take in <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button>, the sounds, shapes and sensations that arrive before they mean anything, and let it <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallize</button> into units: ordered structures that can be reused without being rebuilt. It stacks: edges and colors crystallize into “chair,” chairs and tables into “furniture,” and on up into words, habits and shared assumptions.</p>
+<p data-b="2">Without crystallization, nobody could learn, talk or cooperate, but once something has crystallized it doesn’t adjust easily, and that goes wrong in two ways.</p>
+<p data-b="3"><button type="button" class="term" data-key="reification" aria-expanded="false">Reification</button> is treating something your mind made as a thing in the world. Shiloh says the clock is “just background,” as if background were a property of the clock, like its color. It’s how his mind filed the ticking. Because he takes his own filing for a fact, Maven’s complaint sounds to him like an argument with reality, not a report of a different experience.</p>
+<p data-b="4"><button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">Vicious abstraction</button>, William James’s term, is picking out one feature of something and treating the thing as only that. Eventually Shiloh will think of Maven as “sensitive,” and that one word will start explaining everything she says. The label won’t just describe her, it will replace her.</p>
+<p data-b="5">In both failures, a crystallized unit stops being a tool and replaces what it was meant to describe.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="where-things-crystallize" data-index="2" aria-labelledby="h-where-things-crystallize">
+<h2 id="h-where-things-crystallize"><span class="num" aria-hidden="true">2</span><span class="visually-hidden">Part 2: </span>Where things crystallize</h2>
+<p data-b="0">On their first evening in the house, Shiloh had it filed: kitchen, living room, a bit drafty, nice light. Maven was still taking in the fridge hum, the door that clicks when the heat comes on, the hallway light that flickers for half a second, the different echo in every room.</p>
+<p data-b="1">Everyone <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallizes</button>, but at different <button type="button" class="term" data-key="height" aria-expanded="false">heights</button>. Picture a scale with <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button> at the bottom and fixed, shared categories at the top. Shiloh’s mind crystallizes high, so most of the world arrives pre-sorted. Maven’s crystallizes lower, so more arrives unsorted and has to be handled by hand.</p>
+<p data-b="2">When the furnace quits an hour before guests arrive, Shiloh has it handled in under a minute: call the repair service, move dinner to the back room, borrow a space heater from next door. His <button type="button" class="term" data-key="units" aria-expanded="false">units</button> come with relevance built in, so his attention goes straight to what matters. Maven is still taking in the banging in the vents, the smell and the change in the room’s temperature. That detail is real information, but tonight it’s in the way. A month later, when the furnace quits again and the technician can’t find why, Maven does. The banging only starts when the heat comes on after a cold night; she traces it to a vent damper that sticks in the cold and frees it herself.</p>
+<p data-b="3">Maven noticed the hallway light flickering weeks before anyone else did. When something is subtly wrong, she’s usually the first to see it. But she finds it hard to act until she’s built a picture from the parts, and she sometimes questions things that work perfectly well: a ready-made answer doesn’t settle for her until she’s seen why it works.</p>
+<p data-b="4">At the climbing wall, Shiloh reads a route the way Maven reads a room, every crimp, sloper and edge distinct, while Maven sees a wall with bumps on it. But it took him years to get there, and only at the wall, and he can switch it off when he walks out, while Maven reads every room that way whether she wants to or not.</p>
+<p data-b="5">So it’s a spectrum rather than two kinds of people, and practice can move you along it in one place without changing where you sit everywhere else. Each end pays for what it’s good at.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="a-world-built-at-someone-elses-height" data-index="3" aria-labelledby="h-a-world-built-at-someone-elses-height">
+<h2 id="h-a-world-built-at-someone-elses-height"><span class="num" aria-hidden="true">3</span><span class="visually-hidden">Part 3: </span>A world built at someone else’s height</h2>
+<p data-b="0">Think of your first week in a country whose language you learned in school. You can get by. But the announcement overhead takes a moment to decode, and you’re still not sure it was about your train. The ticket machine is a wall of buttons you read one by one. Someone says something to you, and you work out whether it was friendly a beat too late. The bus you planned around never comes, and you rebuild the route. Nobody watching would see a problem. By evening you’re exhausted, though nothing much happened. A local friend asks why you’re tired, and you can’t quite say.</p>
+<p data-b="1">That’s Maven at home on an ordinary day.</p>
+<p data-b="2">The shared world, meaning language, norms and even what counts as background, is <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button> at roughly the <button type="button" class="term" data-key="height" aria-expanded="false">height</button> most people work at, which is what makes it shareable. Anyone who works lower pays a constant <button type="button" class="term" data-key="translation-cost" aria-expanded="false">translation cost</button>, doing by hand the sorting other minds do automatically.</p>
+<p data-b="3">The clock is <button type="button" class="term" data-key="intrusive" aria-expanded="false">intrusive</button>, not louder, because it takes months to get filed instead of a week. Coming home is hard for the same reason: the house has to be pieced back together from parts every time. Predictability helps far more than it seems it should, since knowing dinner is at seven is translation done in advance.</p>
+<p data-b="4">At a friend’s birthday in a loud bar, Maven is enjoying herself: the music, three conversations, a story she’s half following. Someone leans in, concerned, and asks, “Are you okay?” Her face is busy sorting the room, and that’s not what a good time is supposed to look like. Now she’s sorting her face too.</p>
+<p data-b="5">Texts are the hardest kind of conversation. Maven’s phone buzzes while she’s in the middle of something: a message from a friend, no context, tone unclear. It has to be sorted on the spot. Replying means squeezing what she means into a few words that can be misread. And the conversation never really ends. The next message could come in a minute or in three days, so it never gets filed as finished. It’s a transition with no exit.</p>
+<p data-b="6">Shiloh has needs too: lights that come on at the switch, furniture that stays put, people who knock. Nobody calls those requests, because houses and manners, crystallized at roughly his height, already provide them. Needs the <button type="button" class="term" data-key="default" aria-expanded="false">default</button> already meets go unnoticed. The ones it doesn’t meet have to be said out loud, and those are the only needs anyone notices, so “<button type="button" class="term" data-key="needy" aria-expanded="false">needy</button>” ends up measuring how far someone’s needs sit from the default, not how much they need.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="why-minds-misread-each-other" data-index="4" aria-labelledby="h-why-minds-misread-each-other">
+<h2 id="h-why-minds-misread-each-other"><span class="num" aria-hidden="true">4</span><span class="visually-hidden">Part 4: </span>Why minds misread each other</h2>
+<p data-b="0">Shiloh climbs in the evenings and gets home after Maven is asleep. In the morning his ropes, harness and chalk bag might be across the dining table, his hoodie over the couch, his shoes in the hall, or none of it. Maven’s own sewing projects cover half her desk and don’t bother her at all. She knows where every piece is and why.</p>
+<p data-b="1">Mornings are already the hardest transition of her day, and she never knows what she’ll walk into: something unfiled in her space that keeps asking to be dealt with, the way the clock’s tick does.</p>
+<p data-b="2">Maven asks: “When you get back, could you put your climbing stuff away?”</p>
+<p data-b="3">Shiloh hears: “You’re messy.”</p>
+<p data-b="4">Minds that <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallize</button> at different <button type="button" class="term" data-key="height" aria-expanded="false">heights</button> misread each other in both directions. The researcher Damian Milton calls this the double empathy problem: the breakdown belongs to the gap, not to either person.</p>
+<p data-b="5">The request lands badly. For Maven it’s the end of a long process of working out what bothers her and what would cost Shiloh least; for Shiloh it comes from nowhere. And household habits are crystallized, so asking to change one reopens something settled, which feels like an accusation.</p>
+<p data-b="6">The self crystallizes too, at its own height. Shiloh’s actions have fused into big <button type="button" class="term" data-key="units" aria-expanded="false">units</button>, like “I’m considerate,” so a comment about one action strikes the whole unit. Maven’s actions stay separate pieces, so a request about one stays about that one.</p>
+<p data-b="7">If Maven lets it go, Shiloh walks away thinking she sees him as a slob. So she explains: “I wasn’t saying you’re messy. I meant the stuff on the table.” Shiloh hears: “You’re wrong about what you felt.” The repair lands as a second offense.</p>
+<p data-b="8">Next time, she says nothing. The misreading doesn’t go away; it crystallizes: Maven thinks I’m careless.</p>
+<p data-b="9">So she plans her words. “I want to say first this isn’t about you as a person, and I know it’s small, but could you keep the table clear?” Shiloh braces. Nobody talks like that about a harness on a table unless it’s serious. “Just say what you mean.” Plain talk is what honesty is supposed to sound like. She was saying what she meant: every extra word was there to keep it from meaning more. Her care reads as intensity, her precision as a lecture or a dodge.</p>
+<p data-b="10">By now Shiloh has a word for her: sensitive. And every option Maven has left is read through it. Explaining is sensitivity. Staying quiet and raising it later is holding onto things. Explaining carefully is making a big deal of it. Pointing out the label itself is the most sensitive thing yet. The <button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">vicious abstraction</button> has sealed itself.</p>
+<p data-b="11">Shiloh isn’t being unkind. “Sensitive” is just the unit his mind crystallized to make sense of her. Once it forms, he’s looking at the word, not at her.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="trust-and-why-it-isnt-enough" data-index="5" aria-labelledby="h-trust-and-why-it-isnt-enough">
+<h2 id="h-trust-and-why-it-isnt-enough"><span class="num mark" aria-hidden="true"></span>Trust, and why it isn’t enough</h2>
+<p data-b="0">Say Shiloh decides: “I don’t get it, but if Maven says it matters, I’ll do it.” That’s trust, and it’s necessary.</p>
+<p data-b="1">He puts the gear away. Then Maven asks if the radio could stay off in the mornings. Then for a text before he brings people home. Then for the hallway light to be fixed. Then for dinner to stay around the same time.</p>
+<p data-b="2">To Maven, it’s one request, though it took her years to see it. Every unexpected thing puts her back in that foreign country, sorting by hand, in the one place the sorting was supposed to stop: the radio is sound, the gear and the flickering light are sight, unannounced guests are social, a dinner that moves around is time.</p>
+<p data-b="3">To Shiloh, it’s five unrelated rules. He sees only the surface, so each request arrives as something new, the list keeps growing, and it looks arbitrary. “There’s always something” becomes a second label: <button type="button" class="term" data-key="needy" aria-expanded="false">needy</button>. He may still do all of it, but he feels managed, and each item takes something he liked: the radio in the mornings, friends who drop by, dinner whenever it happens.</p>
+<p data-b="4">From his side, her requests arrive without warning and can’t be filed under any theme, so each has to be handled on its own. They’re <button type="button" class="term" data-key="intrusive" aria-expanded="false">intrusive</button> to him in exactly the way the clock is to her.</p>
+<p data-b="5">The obvious fix is to give him the theme. But however she puts it, Shiloh hears something like this: you keep doing things that disrupt the place I’m supposed to rest. A single request was about some gear on a table. The theme is about Shiloh. Naming the pattern that would make everything make sense also turns five small requests into one large accusation.</p>
+<p data-b="6">Trust gets Shiloh to comply. The theme would let him understand. But the only way to give him the theme is to say it, and by now he hears “sensitive,” not her.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="thought-before-words" data-index="6" aria-labelledby="h-thought-before-words">
+<h2 id="h-thought-before-words"><span class="num" aria-hidden="true">5</span><span class="visually-hidden">Part 5: </span>Thought before words</h2>
+<p data-b="0">When Maven tries to explain why the gear on the table matters, she gets stuck. She knows exactly what she means, but the words won’t hold it.</p>
+<p data-b="1">Everyone knows a version of this: realizing mid-sentence that your planned ending is wrong, and knowing precisely what you meant before you have a word for the fix. Or the tip-of-the-tongue feeling, where you can sense a word’s shape without having it.</p>
+<p data-b="2">Words are among the most <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button> <button type="button" class="term" data-key="units" aria-expanded="false">units</button> there are, and thinking runs beneath them. The psychologist Russell Hurlburt spent decades beeping people at random and asking what was in their minds. Inner speech turned up far less than expected. Common instead was what he calls unsymbolized thinking: a clear, specific thought with no words or images.</p>
+<p data-b="3">A mind that works lower down has to translate upward before it can say anything. The thought is already complete, but the vocabulary crystallized at someone else’s <button type="button" class="term" data-key="height" aria-expanded="false">height</button>.</p>
+<p data-b="4">One way around it is precision, choosing each word for exactly what it carries, though that reads as pedantic or evasive. Another is allegory, which gives the listener a shape to fill with their own experience, so they rebuild the meaning at their own height.</p>
+<p data-b="5">Sometimes the right word exists and is still useless. Trying to explain that she’s talking about Shiloh’s actions, not Shiloh, Maven reaches for the one word that means the self behind the actions: ego. “It feels like everyone’s ego is wrapped up in everything.” Shiloh hears “you’re egotistical.” The word that once named the doer now names a trait read off the doing, so the one tool she has for this point was broken by the same problem she’s trying to explain.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="crystallizing-across-minds" data-index="7" aria-labelledby="h-crystallizing-across-minds">
+<h2 id="h-crystallizing-across-minds"><span class="num" aria-hidden="true">6</span><span class="visually-hidden">Part 6: </span>Crystallizing across minds</h2>
+<p data-b="0">Shiloh has his grandmother’s bread recipe on a stained index card: “a pat of butter,” “knead till smooth,” “bake till it sounds hollow.” He can follow it because he grew up in a kitchen where those phrases meant something specific. The card works because the family <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button> the same <button type="button" class="term" data-key="units" aria-expanded="false">units</button> in the same places.</p>
+<p data-b="1">When many minds crystallize alike, the units can live outside any one head, in words, tools, recipes and rituals, and be handed on and built on. Richard Dawkins called these traveling units memes. Michael Tomasello calls the result the ratchet effect: each generation keeps what the last built and adds to it. Terrence Deacon argues that what set humans apart was this symbolic function, units that can be shared and stacked, more than speech itself. So where people crystallize depends partly on what’s handed to them. Shiloh learned “knead till smooth” as a ready-made unit, passed down along with the bread.</p>
+<p data-b="2">This is Shiloh’s strength. He can bake on a busy weeknight because he trusts the card instead of working out bread from first principles. If everyone had to do that, nothing would ever build up; accumulation depends on people who can take a unit as given and use it.</p>
+<p data-b="3">Maven reads the same card and sees what it leaves out: how hot a hot oven is, what smooth should feel like, what changes on a cold day. When the bread keeps failing and nobody knows why, that’s exactly what’s needed. When the bread is fine, her questions are just noise.</p>
+<p data-b="4">Maybe, then, a group does best with both: people who carry the units forward and people who notice what they leave out.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="building-sideways" data-index="8" aria-labelledby="h-building-sideways">
+<h2 id="h-building-sideways"><span class="num" aria-hidden="true">7</span><span class="visually-hidden">Part 7: </span>Building sideways</h2>
+<p data-b="0">Maven notices that a river delta, a tree, the airways in a lung and a lightning strike all solve the same problem: spreading from one point across an area efficiently. They look nothing alike. Underneath, they share a structure. Not “a tree is like a lung,” but “both are expressions of branching.”</p>
+<p data-b="1">Picture understanding as a pyramid built up from <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button>: a wide base where very different subjects share structure, narrowing toward separate, named subjects at the top. A weak analogy matches two things at the top, by appearance. A real connection matches them lower down, by what they share. Dedre Gentner found that most people recall past examples by surface features. Michelene Chi found that experts sort problems by the principle underneath, while novices sort them by how they look.</p>
+<p data-b="2">Maven’s five requests are five expressions of one pattern, and Shiloh reads them at the top, where they share nothing. What Maven is good at seeing is exactly what Shiloh can’t see in her.</p>
+<p data-b="3">Move sideways before moving up: gather many expressions of a pattern across many fields to widen the base, then build. Building up from a narrow base is how <button type="button" class="term" data-key="reification" aria-expanded="false">reification</button> creeps in.</p>
+<p data-b="4">Much of this runs out of sight. Maven’s mind seems to scan in the background, at a constant quiet cost, until something crosses a threshold of fit and surfaces. Research on insight finds the same: answers often arrive after you’ve stopped working on a problem. It’s also why she sometimes knows a relevant fact without remembering where she learned it, which is called source amnesia. Once something is part of the base, it loses its label.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="dissolving-and-recrystallizing" data-index="9" aria-labelledby="h-dissolving-and-recrystallizing">
+<h2 id="h-dissolving-and-recrystallizing"><span class="num" aria-hidden="true">8</span><span class="visually-hidden">Part 8: </span>Dissolving and recrystallizing</h2>
+<p data-b="0">Every holiday, Shiloh’s family tells the story of the time the turkey caught fire. Each telling, the flames get higher, Uncle Ray’s role grows, and the punchline sharpens. Nobody can recover what actually happened.</p>
+<p data-b="1"><button type="button" class="term" data-key="crystallize" aria-expanded="false">Crystallization</button> isn’t permanent. A new memory consolidates over time and leaves a physical trace, which neuroscientists call an engram: the crystallized <button type="button" class="term" data-key="units" aria-expanded="false">unit</button>, written into cells. New memories crystallize fastest around existing ones they fit, the way a crystal grows around a seed. In 2000, Karim Nader and colleagues showed that recalling a memory <button type="button" class="term" data-key="dissolve" aria-expanded="false">dissolves</button> it for a while, so it can change before it recrystallizes. That’s reconsolidation. Each telling reopens the turkey story, and it recrystallizes around what the family already expects.</p>
+<p data-b="2">So there may be two variables: where things crystallize, and how easily they dissolve. “Sensitive” crystallized fast, and whether it can dissolve decides whether Shiloh ever sees Maven again instead of the word.</p>
+<p data-b="3">Psychedelics may be another window. The REBUS model, from Robin Carhart-Harris and Karl Friston, proposes that they loosen the brain’s high-level expectations, letting <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button> rise unfiltered. In these terms, they dissolve the higher units, so things crystallize lower, and the way people describe trips fits. Ordinary things look as if they’re being seen for the first time. Fluorescent lights become “too bright.” Crowds become overwhelming, every face and voice demanding attention. And experienced users plan around it, with a quiet, familiar place, trusted people and nothing unexpected, because they know the world will stop arriving pre-sorted.</p>
+<p data-b="4">If minds crystallize at different <button type="button" class="term" data-key="height" aria-expanded="false">heights</button>, the same drug should affect them differently. A small 2026 preprint from King’s College London, the PSILAUT study, found that a low dose of psilocybin shifted brain-network connectivity in opposite directions in two groups who looked alike on placebo. It’s not peer-reviewed, the sample is small, and scans aren’t experience, so at most it’s a hint in the direction the model points.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="whats-solid-and-what-isnt" data-index="10" aria-labelledby="h-whats-solid-and-what-isnt">
+<h2 id="h-whats-solid-and-what-isnt"><span class="num mark" aria-hidden="true"></span>What’s solid and what isn’t</h2>
+<p data-b="0">This is a working model, and it fits several separate lines of research: predictive-processing accounts suggesting some minds lean less on expectations, Laurent Mottron’s work on perception that keeps detail before summarizing, the double empathy problem, Dawkins, Tomasello and Deacon on cultural transmission, REBUS, memory consolidation and reconsolidation, Hurlburt’s experience sampling, and James on abstraction. When independent work points the same way, that’s a reasonable sign something is there.</p>
+<p data-b="1">What’s new, and unproven, is the claim that one variable, the <button type="button" class="term" data-key="height" aria-expanded="false">height</button> at which meaning <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallizes</button>, ties together perception, transitions, language, misunderstanding and the self, with a possible second in how easily things <button type="button" class="term" data-key="dissolve" aria-expanded="false">dissolve</button>.</p>
+<p data-b="2">Plenty is still open. Height needs a definition that can be tested, and the model needs a prediction other theories don’t make, such as that understanding where a sound comes from should quiet it faster than hearing it over and over. Some minds may crystallize from a different base rather than lower. How far the self can dissolve is unknown, and so is whether the same variable explains people who crystallize very high and very rigidly, or whether groups benefit from having both.</p>
+<p data-b="3">Any test uses crystallized tools, and broad diagnostic labels group people who may share very little. The way around that is to crystallize on purpose, as a tool, and test small: individuals, or groups who share one specific experience, like Maven and the clock.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="back-to-the-start" data-index="11" aria-labelledby="h-back-to-the-start">
+<h2 id="h-back-to-the-start"><span class="num mark" aria-hidden="true"></span>Back to the start</h2>
+<p data-b="0">Maven and Shiloh aren’t a bad match. Neither is careless or oversensitive. They stand at different <button type="button" class="term" data-key="height" aria-expanded="false">heights</button>, each reading the other through <button type="button" class="term" data-key="units" aria-expanded="false">units</button> <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button> somewhere else, and each, in their own way, is the other’s clock.</p>
+<p data-b="1">Shiloh doesn’t need to hear the clock as Maven does. He needs to believe her, and then, harder, to see that the clock, the gear on the table and the unexpected guests are one thing: that first week in a foreign country, happening at home. Both of them feel the intrusion, but only Maven can see what’s causing it, so most of the translation falls to her. She doesn’t need perfect words, only good enough ones, from someone willing to meet her partway.</p>
+<p data-b="2">This piece will get crystallized too. The easy version is “Mavens and Shilohs”: two kinds of people, one deep and one shallow, or one difficult and one easy. That would be <button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">vicious abstraction</button>, applied to the model itself. The names are positions on one scale, not kinds of people. Everyone stands lower somewhere, usually in something they’ve spent years on. Some people stand there almost everywhere.</p>
+<p data-b="3">An idea about how hard meaning is to share is itself hard to share, for the reasons it describes.</p>
+</section>
+  </article>
+  <article class="essay" id="essay-structure" data-version="structure" lang="en-US" hidden>
+<section id="structure-intrusive-not-louder" data-index="0" aria-labelledby="h-structure-intrusive-not-louder">
+<h2 id="h-structure-intrusive-not-louder"><span class="num mark" aria-hidden="true"></span>Intrusive, not louder</h2>
+<p data-b="0"><span class="lead">How strong an input</span> is and how <button type="button" class="term" data-key="intrusive" aria-expanded="false">intrusive</button> it is are different things. Strength belongs to the input. Intrusiveness belongs to the input’s relation to what the mind is holding: whether it settles into the background or keeps asking to be dealt with. People who find everyday sound overwhelming often have ordinary hearing thresholds, which hints that the difference lies in what happens to a signal after it’s picked up, though thresholds only measure detection.</p>
+<p data-b="1">That difference is the first case of a broader variable: the <button type="button" class="term" data-key="height" aria-expanded="false">height</button> at which a mind <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallizes</button> what comes in. The same height shows up in transitions, language, misunderstanding and the self, and its effects run in both directions between minds.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-how-things-crystallize" data-index="1" aria-labelledby="h-structure-how-things-crystallize">
+<h2 id="h-structure-how-things-crystallize"><span class="num" aria-hidden="true">1</span><span class="visually-hidden">Part 1: </span>How things crystallize</h2>
+<p data-b="0">Experience starts as <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button>: whatever is there before a mind has organized it, never reached directly. Minds <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallize</button> raw material into <button type="button" class="term" data-key="units" aria-expanded="false">units</button>, ordered structures that can be reused without being rebuilt.</p>
+<p data-b="1">Crystallization stacks. Units become raw material for the next layer up, so each level is built from the one beneath and summarizes it. The summary is lossy: a unit keeps what proved relevant and drops the rest, which is what makes it quick to use. Image-recognition networks build a stack like this on their own, from edges to parts to objects (Zeiler and Fergus). The term is an umbrella on purpose. It covers what research splits into chunking, which forms units (Miller; Chase and Simon: capacity grows with chunk size); entrenchment and consolidation, which fix them; and automaticity, which uses them without effort (Shiffrin and Schneider). It has nothing to do with Cattell’s crystallized intelligence, which is accumulated knowledge.</p>
+<p data-b="2">Without crystallization there’s no learning, language or coordination. Its cost is rigidity: once a unit has formed, it doesn’t adjust easily to what it no longer fits, and that goes wrong in two ways. <button type="button" class="term" data-key="reification" aria-expanded="false">Reification</button> promotes an abstraction to a thing, so a mind’s own sorting gets taken as a property of the world, and someone else’s sorting sounds like an argument with reality instead of a report of different experience. <button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">Vicious abstraction</button> (James) lets one feature of a thing stand for all of it, and it can seal itself by explaining away every piece of evidence against it. In both, a unit stops being a tool and replaces what it was meant to describe.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-where-things-crystallize" data-index="2" aria-labelledby="h-structure-where-things-crystallize">
+<h2 id="h-structure-where-things-crystallize"><span class="num" aria-hidden="true">2</span><span class="visually-hidden">Part 2: </span>Where things crystallize</h2>
+<p data-b="0"><button type="button" class="term" data-key="height" aria-expanded="false">Height</button> is where in the stack a mind tends to <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallize</button>, from <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button> at the bottom to fixed shared categories at the top. Minds differ in height, and one mind’s height varies somewhat by domain.</p>
+<p data-b="1">Height is about grain, not <button type="button" class="term" data-key="units" aria-expanded="false">unit</button> size. A mind that crystallizes low keeps distinctions close to raw material and leaves them connected to each other across what would otherwise be unit boundaries. A mind that crystallizes high seals connections inside units, so each unit is tight inside, mostly closed to the others, and usable without being opened. Lower crystallization carries more connections, not fewer. What it lacks is segmentation.</p>
+<p data-b="2">Each end has real strengths and real costs. High crystallization builds relevance into its units, so attention goes straight to what matters: fast triage, fast action, reliable shared meaning. What the units leave out goes unseen, and links between units are hard to reach. Low crystallization keeps detail live and connected, so it catches small anomalies early and finds links across domains. It pays in load, because more stays live at once; in delay, because action waits until a picture is built from parts; and in a habit of reopening things that work.</p>
+<p data-b="3">Height has a stable baseline, and practice shifts it within one domain. Expertise sharpens distinctions near raw material and also binds them into bigger units above, which is why chunking research finds experts with larger chunks while perception research finds them seeing finer differences. Both happen at once, and height refers to the grain. An expert who reads fine distinctions in one field hasn’t changed height anywhere else and can stop on walking out; a mind with a low baseline reads at that grain almost everywhere and can’t easily stop. Height can also move briefly, under a drug, inside a metaphor, in a strange place, but those are passing states, not the baseline.</p>
+<p data-b="4">Unfamiliar places are a different case. There, everyone lacks units, so input arrives unsorted and has to be handled by hand whatever the mind’s height. A newcomer copes by grabbing coarse placeholder units, which sit high because they throw away the distinctions an expert keeps. Lacking units and crystallizing low both produce <button type="button" class="term" data-key="translation-cost" aria-expanded="false">translation cost</button>, but the first is temporary and happens to everyone, and the second lasts after the units exist, because the mind keeps finer grain than the units supply.</p>
+<p data-b="5">Predictive processing offers a candidate mechanism. Perception weighs what it expects against what’s coming in, according to how reliable each seems (precision), and height corresponds roughly to that balance. Pellicano and Burr, Lawson, Rees and Friston, and Mottron each describe a version of crystallizing low.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-a-world-built-at-someone-elses-height" data-index="3" aria-labelledby="h-structure-a-world-built-at-someone-elses-height">
+<h2 id="h-structure-a-world-built-at-someone-elses-height"><span class="num" aria-hidden="true">3</span><span class="visually-hidden">Part 3: </span>A world built at someone else’s height</h2>
+<p data-b="0">Shared structures, meaning language, norms and the line around what counts as background, are <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button> at roughly the population’s typical <button type="button" class="term" data-key="height" aria-expanded="false">height</button>, which is what makes them shareable. Distance from that height is a standing <button type="button" class="term" data-key="translation-cost" aria-expanded="false">translation cost</button>: sorting done by hand that the shared world does automatically for most minds. Everyone pays it somewhere new. For minds whose baseline sits far from the typical height, it reaches into familiar places too, home included.</p>
+<p data-b="1">Distance in either direction costs something, but it costs most below. Shared <button type="button" class="term" data-key="units" aria-expanded="false">units</button> come ready-made, and a mind at or above their grain can take them as given. A mind that keeps finer grain sees what they leave out and has to sort that remainder by hand, every time. Above the typical height the cost is different: the world sometimes asks for detail the units don’t hold, and requests from lower minds arrive unsorted.</p>
+<p data-b="2">The cost predicts a cluster:</p>
+<ul data-b="3"><li>intrusiveness rather than intensity, since unsettled input keeps competing with what’s held and settles late;</li><li>load that rises faster than the number of inputs, since each channel needs its own translation;</li><li>high transition cost, since context has to be rebuilt from parts instead of loaded whole;</li><li>outsized benefit from predictability, which is translation done in advance (compare Sinha and colleagues on prediction).</li></ul>
+<p data-b="4">It also predicts something that separates mechanism from preference: understanding an input, its source, cause and timing, should reduce intrusiveness more than repetition does. Standard habituation studies repeat meaningless stimuli, so they don’t test this, and comparing unannounced input with self-caused input can’t separate the two, since a preference for control predicts the same gap. The test holds control constant and varies understanding: an unannounced input whose source and timing are known should intrude less than one whose source isn’t. Preference predicts no difference; the mechanism predicts one.</p>
+<p data-b="5">Text messaging stacks these costs: input that arrives unannounced and short on context, a reply channel that squeezes meaning into a few words open to misreading, and no closure, so the exchange never settles as finished.</p>
+<p data-b="6">The same distance decides which needs get seen. Needs the <button type="button" class="term" data-key="default" aria-expanded="false">default</button> meets are invisible, because shared structures already meet them, while needs it doesn’t meet have to be spoken, and only spoken needs register. “<button type="button" class="term" data-key="needy" aria-expanded="false">Needy</button>” measures distance from the default, not amount of need. Effort shows on the same terms. The work of translation doesn’t show, but its side effects do, so someone busy sorting a crowded room can look unhappy to people whose picture of a good time was crystallized at another height.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-why-minds-misread-each-other" data-index="4" aria-labelledby="h-structure-why-minds-misread-each-other">
+<h2 id="h-structure-why-minds-misread-each-other"><span class="num" aria-hidden="true">4</span><span class="visually-hidden">Part 4: </span>Why minds misread each other</h2>
+<p data-b="0">Minds that <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallize</button> at different <button type="button" class="term" data-key="height" aria-expanded="false">heights</button> misread each other in both directions. The breakdown belongs to the gap, not to either person: Milton’s double empathy problem, backed by Crompton and colleagues’ finding that information passes well within matched pairs and degrades in mixed ones. The mechanism runs both ways, but the cost of bridging falls unevenly. Shared structures sit at the typical height, so most of the translation falls on whoever sits furthest from it, especially below it.</p>
+<p data-b="1">Requests to change behavior fail in a particular way:</p>
+<ol data-b="2"><li>For the person asking, the request is the end of a long process. For the person asked, it arrives without context.</li><li>Shared habits are crystallized, so asking to change one reopens something settled, and the request registers as an accusation.</li><li>The self crystallizes too. Where a run of actions has been sealed into one <button type="button" class="term" data-key="units" aria-expanded="false">unit</button> of self (“I’m considerate”), a comment on one action lands on the whole unit and is heard as a comment on character.</li></ol>
+<p data-b="3">The misreading then sets through a repair loop where every available move feeds it:</p>
+<ul data-b="4"><li>Repair is heard as correcting the other person’s experience and lands as a second offense.</li><li>Silence leaves the misreading in place, where it crystallizes.</li><li>Careful framing reads as intensity, precision as a lecture, and qualifying reads as dodging, although the point of qualifying is to keep a statement from meaning more than it says.</li><li>A label forms, and every remaining move is read through it, including objecting to the label. <button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">Vicious abstraction</button> seals itself.</li></ul>
+<p data-b="5">Trust, acting on someone’s report that something matters without needing to feel why, is necessary and not enough. Without the pattern underneath, the needs it covers arrive one at a time as a growing list of unrelated rules, and the list produces a second label (“<button type="button" class="term" data-key="needy" aria-expanded="false">needy</button>”). Compliance can continue, but each item costs the person complying something real, and the requests intrude on them the way unsorted input intrudes on the person asking, arriving without warning and fitting no theme.</p>
+<p data-b="6">Naming the theme would let the list be read as one need. The theme is hard to find in the first place, because it sits underneath the particulars that express it, and the person asking may take years to see it. Once named, it’s about the person rather than an action, so it turns many small requests into one large accusation and arrives through the channel that has already misread, where the label is waiting.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-thought-before-words" data-index="5" aria-labelledby="h-structure-thought-before-words">
+<h2 id="h-structure-thought-before-words"><span class="num" aria-hidden="true">5</span><span class="visually-hidden">Part 5: </span>Thought before words</h2>
+<p data-b="0">Words are among the most <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button> <button type="button" class="term" data-key="units" aria-expanded="false">units</button> there are, and thinking runs beneath them: Hurlburt’s experience sampling finds inner speech rarer than people assume, and unsymbolized thinking (a specific, complete thought with no words or images) common.</p>
+<p data-b="1">A mind working lower in the stack has to translate upward into a vocabulary crystallized at another <button type="button" class="term" data-key="height" aria-expanded="false">height</button>. The thought is complete before it’s said, so the difficulty is in getting it across, not in forming it. Whether the gap between thought and word is wider for minds that crystallize low is untested. The model predicts it is, since more of the thought sits below the units words name.</p>
+<p data-b="2">There are three workarounds. Precision makes each word carry exactly what it should, and gets read as pedantic or evasive. Allegory hands over a shape the listener fills with their own particulars, so the meaning gets rebuilt at their height; an archetype is a shape so widely shared that almost anyone can fill it. Metaphor carries a structure across from another domain through an image. A live metaphor only works if the listener finds the structure the two domains share (Gentner’s structure-mapping covers metaphor as well as analogy), so it may move the listener briefly lower, toward where the domains connect, a passing state rather than a change of baseline. Poetry may combine all three, and part of how it does so is by loosening words worn smooth with use, so they carry their parts again.</p>
+<p data-b="3">A word can exist and still fail. The one word for the self behind actions is ego in its original sense: the Latin “I,” Kant’s “I think” that goes with every experience, Freud’s <em>das Ich</em>. Everyday use has moved it from the doer to a trait read off the doing, so the only tool for telling action from self has been broken by the confusion it’s needed to describe.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-crystallizing-across-minds" data-index="6" aria-labelledby="h-structure-crystallizing-across-minds">
+<h2 id="h-structure-crystallizing-across-minds"><span class="num" aria-hidden="true">6</span><span class="visually-hidden">Part 6: </span>Crystallizing across minds</h2>
+<p data-b="0"><button type="button" class="term" data-key="units" aria-expanded="false">Units</button> <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallized</button> alike by many minds can live outside any one head, in language, tools, technique and ritual, and be passed on and built on across generations. Tomasello calls the result the ratchet effect. Deacon puts the human difference in this symbolic function rather than in speech. Intelligence exists without language (crows, apes, reasoning that survives aphasia), so the claim is narrow: shareable crystallization makes intelligence cumulative without creating it.</p>
+<p data-b="1">Dawkins called the traveling units memes. In these terms a meme is a pre-crystallized unit, handed over ready-made and used without being rebuilt, though each mind reshapes it a little toward what it already holds, the way retold stories drift. A meme carries the grain it was made at: which distinctions it keeps and which it drops. Cultural transmission therefore influences where crystallization happens, because so much of what a mind holds arrives ready-made.</p>
+<p data-b="2">Much of what passes for social intuition is plausibly of this kind. Scripts for how an evening out, an apology or a request is supposed to go (Schank and Abelson) are taken up whole and run without inspection. A script keeps some distinctions and drops others. A mind that keeps finer grain notices what the script dropped, so the script doesn’t fit cleanly and can’t just be run; it gets rebuilt from parts, which is slow and can look like not knowing what everyone else “just knows.” Because the rebuilding starts from the script, it also shows where the script no longer fits the situation. It can also get the situation wrong: a rebuilt script can miss the point the original was carrying.</p>
+<p data-b="3">Both ends contribute. Accumulation depends on minds that take units as given and use them without rebuilding, and nobody could rebuild everything. Crystallizing low means seeing what shared units leave out, which matters when the units fail and is mostly noise while they work. Software engineers know both sides: every layer that hides the one below eventually leaks in a way only someone who can work underneath can fix (Spolsky’s law of leaky abstractions), and reopening a layer that works is a reliable way to break it. That suggests a possibility, not a claim: a group may do best with both. If so, variation would be worth most when it’s rare, as in frequency-dependent selection. Nothing here shows that variation is kept around for that reason.</p>
+<p data-b="4">How shared units form may be shifting too. This part is speculative. Media selected for engagement reward framing over information, and a frame is itself a crystallized unit that hands over the conclusion along with the content (compare Brady and colleagues on moral and emotional language and how far posts spread). Pre-framed units cost the typical mind almost nothing to take up, so they can spread without anyone’s baseline changing. A mind that keeps finer grain has to sort what each frame leaves out, so its distance from the shared layer would grow while it stays exactly where it was. A faster churn of shared units is a separate question, about how readily they <button type="button" class="term" data-key="dissolve" aria-expanded="false">dissolve</button> and get replaced, and it may run alongside. Either would be an influence on trends, not an account of them.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-building-sideways" data-index="7" aria-labelledby="h-structure-building-sideways">
+<h2 id="h-structure-building-sideways"><span class="num" aria-hidden="true">7</span><span class="visually-hidden">Part 7: </span>Building sideways</h2>
+<p data-b="0">Understanding is pyramidal and sits on the same axis as <button type="button" class="term" data-key="height" aria-expanded="false">height</button>. Its base is near <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button>, where distinctions are still connected before they’ve been sorted into domains, and it narrows upward into separate, named domains whose particulars are expressions of base patterns. Patterns like branching or feedback show up in how things connect at the base, before the material is split by domain, which is why they recur across very different fields.</p>
+<p data-b="1">Real connections across domains happen at the base (shared structure), not at the top (surface resemblance). This is Gentner’s structure-mapping distinction. People tend to recall past cases by surface similarity even when they judge soundness by structure (Gentner, Rattermann and Forbus), and experts sort problems by the principle underneath, how the parts connect, where novices sort by how they look (Chi, Feltovich and Glaser). Learned systems show failures at both ends with no self involved. An image classifier can latch onto one feature, such as texture, that happened to predict labels in training (Geirhos and colleagues), which is <button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">vicious abstraction</button> with nothing to defend, or it can overfit, holding so much detail of its training cases that nothing carries over, which is the low-end failure.</p>
+<p data-b="2">A list of requests from one person can be this case: varied requests that express one base pattern and, read at the top, share nothing.</p>
+<p data-b="3">Building well means widening the base sideways across many expressions before building up, because the top is narrow and narrowness is where <button type="button" class="term" data-key="reification" aria-expanded="false">reification</button> gets in. Lower <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallization</button> suits this, since its connections aren’t sealed inside <button type="button" class="term" data-key="units" aria-expanded="false">units</button> and a pattern in one domain stays linked to its expressions in others. The linking runs all the time, which is its cost. Base-level matching seems to run below awareness and surface only past a threshold of fit (incubation effects), and material absorbed into the base loses its source label (source amnesia), which is why base-level connections often arrive without a traceable origin.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-dissolving-and-recrystallizing" data-index="8" aria-labelledby="h-structure-dissolving-and-recrystallizing">
+<h2 id="h-structure-dissolving-and-recrystallizing"><span class="num" aria-hidden="true">8</span><span class="visually-hidden">Part 8: </span>Dissolving and recrystallizing</h2>
+<p data-b="0"><button type="button" class="term" data-key="crystallize" aria-expanded="false">Crystallization</button> can be undone. A second parameter, alongside <button type="button" class="term" data-key="height" aria-expanded="false">height</button>, governs how readily structures <button type="button" class="term" data-key="dissolve" aria-expanded="false">dissolve</button> and recrystallize. It overlaps with the low end’s habit of reopening things that work, and how far the two can be separated is open.</p>
+<p data-b="1">Memory gives the clearest case. Consolidation is crystallization, with a physical trace: the engram (Semon’s term; found experimentally by Tonegawa’s group). Reconsolidation is dissolving: recall makes a consolidated memory open to change until it recrystallizes (Nader and colleagues, 2000). Schemas work as seed crystals, speeding the consolidation of material that fits them (Tse and colleagues, 2007), so existing structure shapes what crystallizes and how fast. Retold stories drift toward the teller’s schemas (Bartlett, 1932), which is reconsolidation with a direction.</p>
+<p data-b="2">Dissolving has depth. At its shallowest it acts on one memory. Art can act a level up, on perception. Shklovsky argued that habit makes perception automatic until things are recognized without being seen, and that art exists to make them strange again. In these terms defamiliarization dissolves a crystallized <button type="button" class="term" data-key="units" aria-expanded="false">unit</button> so the parts beneath it get noticed again, a brief, chosen version of what a low baseline lives with. Poetry does this to language itself, which is likely how it carries what ordinary vocabulary can’t. Creativity may work the same way: dissolving on purpose, then recrystallizing in a new shape.</p>
+<p data-b="3">Psychedelics dissolve broadly. REBUS (Carhart-Harris and Friston) proposes that they relax the weight of high-level expectations: a passing drop in height and a rise in how readily structures dissolve. Reported effects fit (familiar objects looking new, ordinary light too bright, crowds overwhelming, “set and setting” to head off unsorted input), with confounds: dilated pupils let in more light, and anxiety adds to crowd distress. REBUS predicts that one intervention should act differently at different heights. The PSILAUT preprint (2026) reports connectivity changes in opposite directions in two groups that looked the same on placebo. That fits the prediction but is preliminary: a small sample, not peer-reviewed, and connectivity isn’t experience. If the groups differ in height, the model might also predict a difference on placebo, so the support is weak.</p>
+<p data-b="4">At the deepest level, what loosens is the connection between the subject and its contents: action, perception, the model of the self. This is reported as ego dissolution. Derealization is a partial, unwanted version, where the layer that marks experience as present and real comes loose while perception carries on (Seth and colleagues, 2012).</p>
+<p data-b="5">Hypothesis: crystallization sits in the connection between subject and world, not in the subject. If ego dissolution and derealization loosen that connection rather than the subject, that would explain why what dissolves can come back intact. It sits uneasily with the claim that the self crystallizes too, and that tension is open.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-whats-solid-and-what-isnt" data-index="9" aria-labelledby="h-structure-whats-solid-and-what-isnt">
+<h2 id="h-structure-whats-solid-and-what-isnt"><span class="num mark" aria-hidden="true"></span>What’s solid and what isn’t</h2>
+<p data-b="0"><strong>Lines up with:</strong> predictive processing, enhanced perceptual functioning, the double empathy problem, cumulative culture (Dawkins, Tomasello, Deacon), scripts, REBUS, consolidation and reconsolidation, experience sampling, James on abstraction, and layered features in machine learning. Several were picked because they fit, and most bear on shared <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallization</button> or one end of the scale rather than on <button type="button" class="term" data-key="height" aria-expanded="false">height</button> itself.</p>
+<p data-b="1"><strong>New and unproven:</strong> one variable tying together perception, transitions, language, misunderstanding and the self, with a possible second in how readily structures <button type="button" class="term" data-key="dissolve" aria-expanded="false">dissolve</button>.</p>
+<p data-b="2"><strong>Speculative:</strong> that social intuition is largely absorbed scripts; that engagement-selected media widen the distance between the shared layer and finer-grained minds; that metaphor briefly lowers height; that poetry combines the three workarounds; that creativity is dissolving on purpose.</p>
+<p data-b="3"><strong>Still needed:</strong></p>
+<ul data-b="4"><li>a working definition of height as grain, separate from <button type="button" class="term" data-key="units" aria-expanded="false">unit</button> size;</li><li>a prediction predictive processing doesn’t already make (candidate: understanding versus repetition, with control held constant);</li><li>a way to tell crystallizing lower apart from crystallizing from a different base, and from simply lacking units;</li><li>evidence that height has a stable baseline across domains while practice shifts it within one, and a rule for telling passing shifts from the baseline;</li><li>which parameter owns reopening things, height or readiness to dissolve;</li><li>an account of how far the self can dissolve, given that the self crystallizes at varying heights and the connection hypothesis puts crystallization between subject and world (compare Hume’s bundle of perceptions; Dennett’s self as a center of narrative gravity);</li><li>an explanation of the high-and-rigid extreme by the same variables;</li><li>a test of whether groups benefit from variation in height.</li></ul>
+<p data-b="5"><strong>Constraint:</strong> any test uses crystallized instruments, and broad diagnostic categories are coarse next to the variable. Test at the level of individuals or groups defined by one specific trait, crystallizing on purpose, as a tool.</p>
+</section>
+<div class="divider" aria-hidden="true"><svg class="web" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M4 9L17 3M4 9L29 11M4 9L42 4M4 9L56 8M17 3L29 11M17 3L42 4M17 3L56 8M29 11L42 4M29 11L56 8M42 4L56 8"/><circle cx="4" cy="9" r="1.1"/><circle cx="17" cy="3" r="1.1"/><circle cx="29" cy="11" r="1.1"/><circle cx="42" cy="4" r="1.1"/><circle cx="56" cy="8" r="1.1"/></svg></div><section id="structure-back-to-the-start" data-index="10" aria-labelledby="h-structure-back-to-the-start">
+<h2 id="h-structure-back-to-the-start"><span class="num mark" aria-hidden="true"></span>Back to the start</h2>
+<p data-b="0">Every mind <button type="button" class="term" data-key="crystallize" aria-expanded="false">crystallizes</button> <button type="button" class="term" data-key="raw-material" aria-expanded="false">raw material</button> into meaning at a <button type="button" class="term" data-key="height" aria-expanded="false">height</button> that has a stable baseline and shifts with practice in particular domains. Shared structures sit at the typical height, and distance from it is paid as <button type="button" class="term" data-key="translation-cost" aria-expanded="false">translation cost</button> in perception, transitions, language and being understood.</p>
+<p data-b="1">Mutual misreading comes from difference, not defect. The mechanism runs both ways, but most of the translation falls on whoever sits furthest from the shared height, especially below it. Trust is needed to bridge the distance and isn’t enough on its own.</p>
+<p data-b="2">The model invites its own <button type="button" class="term" data-key="vicious-abstraction" aria-expanded="false">vicious abstraction</button>: turning heights into types of people. Heights are positions on one scale, held in particular domains, not kinds of people, though for some minds the position is much the same almost everywhere.</p>
+<p data-b="3">An account of why meaning is hard to get across is itself hard to get across. Hence two versions, each built at a different height.</p>
+</section>
+  </article>
+  </div>
+
+  <footer class="colophon">
+    <svg class="web colophon-mark" viewBox="0 0 60 14" width="60" height="14" aria-hidden="true"><path d="M3 8L14 2M3 8L24 12M3 8L36 5M3 8L47 11M3 8L57 4M14 2L24 12M14 2L36 5M14 2L47 11M14 2L57 4M24 12L36 5M24 12L47 11M24 12L57 4M36 5L47 11M36 5L57 4M47 11L57 4"/><circle cx="3" cy="8" r="1.1"/><circle cx="14" cy="2" r="1.1"/><circle cx="24" cy="12" r="1.1"/><circle cx="36" cy="5" r="1.1"/><circle cx="47" cy="11" r="1.1"/><circle cx="57" cy="4" r="1.1"/></svg>
+    <p>Draft for feedback <span aria-hidden="true">·</span> Updated November 15, 2026</p>
+  </footer>
+</main>
+
+<div class="tip" id="tip" role="tooltip" hidden><span class="tip-label" id="tip-label"></span><span class="tip-def" id="tip-def"></span></div>
+
+<script>
+window.WMS = {"versions":{"story":{"toc":[{"slug":"intrusive-not-louder","name":"Intrusive, not louder","num":null},{"slug":"how-things-crystallize","name":"How things crystallize","num":"1"},{"slug":"where-things-crystallize","name":"Where things crystallize","num":"2"},{"slug":"a-world-built-at-someone-elses-height","name":"A world built at someone else’s height","num":"3"},{"slug":"why-minds-misread-each-other","name":"Why minds misread each other","num":"4"},{"slug":"trust-and-why-it-isnt-enough","name":"Trust, and why it isn’t enough","num":null},{"slug":"thought-before-words","name":"Thought before words","num":"5"},{"slug":"crystallizing-across-minds","name":"Crystallizing across minds","num":"6"},{"slug":"building-sideways","name":"Building sideways","num":"7"},{"slug":"dissolving-and-recrystallizing","name":"Dissolving and recrystallizing","num":"8"},{"slug":"whats-solid-and-what-isnt","name":"What’s solid and what isn’t","num":null},{"slug":"back-to-the-start","name":"Back to the start","num":null}]},"structure":{"toc":[{"slug":"intrusive-not-louder","name":"Intrusive, not louder","num":null},{"slug":"how-things-crystallize","name":"How things crystallize","num":"1"},{"slug":"where-things-crystallize","name":"Where things crystallize","num":"2"},{"slug":"a-world-built-at-someone-elses-height","name":"A world built at someone else’s height","num":"3"},{"slug":"why-minds-misread-each-other","name":"Why minds misread each other","num":"4"},{"slug":"thought-before-words","name":"Thought before words","num":"5"},{"slug":"crystallizing-across-minds","name":"Crystallizing across minds","num":"6"},{"slug":"building-sideways","name":"Building sideways","num":"7"},{"slug":"dissolving-and-recrystallizing","name":"Dissolving and recrystallizing","num":"8"},{"slug":"whats-solid-and-what-isnt","name":"What’s solid and what isn’t","num":null},{"slug":"back-to-the-start","name":"Back to the start","num":null}]}},"map":{"story":[[0,null],[1,null],[2,null],[3,null],[4,null],[4,5],[5,null],[6,null],[7,null],[8,null],[9,null],[10,null]],"structure":[[0,null],[1,null],[2,null],[3,null],[4,null],[6,null],[7,null],[8,null],[9,null],[10,null],[11,null]]},"defs":{"vicious-abstraction":{"label":"Vicious abstraction","def":"Picking out one feature of something and treating it as the whole thing. The term is William James’s."},"reification":{"label":"Reification","def":"Treating something your mind made as if it were a thing out in the world."},"translation-cost":{"label":"Translation cost","def":"The work of sorting by hand what the shared world sorts automatically for most people."},"raw-material":{"label":"Raw material","def":"What’s there before a mind has shaped it: sounds, shapes and sensations that don’t mean anything yet."},"crystallize":{"label":"Crystallize","def":"When raw material settles into something the mind can reuse without rebuilding it, like a word, a habit or an assumption."},"dissolve":{"label":"Dissolve","def":"When something that has crystallized loosens again, so it can change before it settles back."},"height":{"label":"Height","def":"Where a mind tends to settle what comes in, from raw material at the bottom to fixed, shared categories at the top. It’s a position, not a type."},"units":{"label":"Units","def":"What a mind has already put together and can use whole: a word, a category, a habit, a sense of self."},"intrusive":{"label":"Intrusive","def":"Something that keeps asking to be dealt with because it hasn’t settled into the background. It’s about fit, not volume."},"default":{"label":"The default","def":"What the shared world already provides without anyone asking. Needs it covers go unnoticed."},"needy":{"label":"Needy","def":"In this essay, a measure of how far someone’s needs sit from the default, not how much they need."}}};
+(function () {
+  "use strict";
+  var D = window.WMS;
+  var doc = document.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var STORE = "wms-place-v2";
+  var VSTORE = "wms-version";
+
+  function store(get, val) {
+    try {
+      if (get) return JSON.parse(localStorage.getItem(STORE) || "null");
+      localStorage.setItem(STORE, JSON.stringify(val));
+    } catch (e) { return null; }
+  }
+  function css(name) { return getComputedStyle(doc).getPropertyValue(name).trim(); }
+  function $(id) { return document.getElementById(id); }
+  var NS = "http://www.w3.org/2000/svg";
+  function svgEl(tag, attrs) {
+    var el = document.createElementNS(NS, tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+
+  /* ---------- Theme ---------- */
+  var sysDark = window.matchMedia("(prefers-color-scheme: dark)");
+  function effectiveTheme() {
+    var t = doc.getAttribute("data-theme");
+    return t || (sysDark.matches ? "dark" : "light");
+  }
+  var themeListeners = [];
+  function syncThemeButtons() {
+    var dark = effectiveTheme() === "dark";
+    document.querySelectorAll("[data-theme-toggle]").forEach(function (b) {
+      b.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+      b.querySelector(".theme-label").textContent = dark ? "Light" : "Dark";
+    });
+    themeListeners.forEach(function (f) { f(); });
+  }
+  document.querySelectorAll("[data-theme-toggle]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var next = effectiveTheme() === "dark" ? "light" : "dark";
+      doc.setAttribute("data-theme", next);
+      try { localStorage.setItem("wms-theme", next); } catch (e) {}
+      syncThemeButtons();
+    });
+  });
+  if (sysDark.addEventListener) sysDark.addEventListener("change", syncThemeButtons);
+  syncThemeButtons();
+
+  /* ---------- Versions ---------- */
+  var version = "story";
+  try { var sv = localStorage.getItem(VSTORE); if (sv && D.versions[sv]) version = sv; } catch (e) {}
+  var toc, n, sections, pairs, webs = [], links = [];
+  var saved = store(true) || {};
+  var state = {};
+  Object.keys(D.versions).forEach(function (v) {
+    var s = saved[v] || {};
+    var len = D.versions[v].toc.length;
+    var rd = [];
+    for (var i = 0; i < len; i++) rd.push(!!(s.read && s.read[i]));
+    state[v] = { slug: s.slug, frac: s.frac || 0, read: rd };
+  });
+
+  /* ---------- Section map ---------- */
+  function buildList(ol) {
+    ol.innerHTML = "";
+    toc.forEach(function (s, i) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#" + s.slug;
+      a.dataset.index = i;
+      var num = document.createElement("span");
+      num.className = "map-num";
+      num.setAttribute("aria-hidden", "true");
+      num.textContent = s.num || "";
+      var label = document.createElement("span");
+      label.textContent = s.name;
+      var state = document.createElement("span");
+      state.className = "visually-hidden map-state";
+      a.appendChild(num);
+      a.appendChild(label);
+      a.appendChild(state);
+      li.appendChild(a);
+      ol.appendChild(li);
+    });
+  }
+  function makePairs() {
+    // Which sections link once both are read: near neighbors plus some far ones,
+    // so the read part grows into one continuous web rather than a chain.
+    var out = [];
+    for (var i = 0; i < n; i++)
+      for (var k = i + 1; k < n; k++)
+        if (k - i <= 2 || (i + k) % 4 === 1) out.push([i, k]);
+    return out;
+  }
+
+  function Web(svg, layout) {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    this.svg = svg;
+    this.layout = layout;
+    this.nodes = [];
+    this.edges = [];
+    var gE = svgEl("g", {}), gN = svgEl("g", {});
+    svg.appendChild(gE); svg.appendChild(gN);
+    var pos = [];
+    for (var i = 0; i < n; i++) pos.push(layout.pos(i));
+    svg.setAttribute("width", layout.w);
+    svg.setAttribute("height", layout.h);
+    svg.setAttribute("viewBox", "0 0 " + layout.w + " " + layout.h);
+    var self = this;
+    pairs.forEach(function (p) {
+      var a = pos[p[0]], b = pos[p[1]];
+      var d;
+      if (layout.vertical) {
+        var bend = Math.min(a[0], b[0]) - 4 - (p[1] - p[0]) * 3.4;
+        d = "M" + a[0] + " " + a[1] + "Q" + bend + " " + (a[1] + b[1]) / 2 + " " + b[0] + " " + b[1];
+      } else {
+        var lift = Math.min(a[1], b[1]) - 2 - (p[1] - p[0]) * 0.9;
+        d = "M" + a[0] + " " + a[1] + "Q" + (a[0] + b[0]) / 2 + " " + lift + " " + b[0] + " " + b[1];
+      }
+      var e = svgEl("path", { d: d, "class": "edge" });
+      gE.appendChild(e);
+      self.edges.push({ el: e, a: p[0], b: p[1] });
+    });
+    for (var j = 0; j < n; j++) {
+      var c = svgEl("circle", { cx: pos[j][0], cy: pos[j][1], r: layout.r, "class": "node" });
+      var loose = layout.loose(j);
+      c.style.transform = "translate(" + loose[0] + "px," + loose[1] + "px)";
+      c.dataset.loose = loose.join(",");
+      gN.appendChild(c);
+      this.nodes.push(c);
+    }
+  }
+  Web.prototype.update = function (read, current, flashFrom) {
+    this.nodes.forEach(function (c, i) {
+      var isRead = read[i] || i === current;
+      c.classList.toggle("read", !!read[i]);
+      c.classList.toggle("current", i === current);
+      var l = c.dataset.loose.split(",");
+      c.style.transform = isRead ? "translate(0,0)" : "translate(" + l[0] + "px," + l[1] + "px)";
+    });
+    var on = function (i) { return read[i] || i === current; };
+    this.edges.forEach(function (e) { e.el.classList.toggle("on", on(e.a) && on(e.b)); });
+    if (flashFrom != null && !reduce.matches) this.flash(flashFrom, on);
+  };
+  // When a new section joins, a pulse runs through the whole web: everything responds.
+  Web.prototype.flash = function (from, on) {
+    var hop = {}; hop[from] = 0;
+    var queue = [from];
+    while (queue.length) {
+      var x = queue.shift();
+      this.edges.forEach(function (e) {
+        if (!on(e.a) || !on(e.b)) return;
+        var y = e.a === x ? e.b : e.b === x ? e.a : null;
+        if (y != null && hop[y] == null) { hop[y] = hop[x] + 1; queue.push(y); }
+      });
+    }
+    this.edges.forEach(function (e) {
+      if (!e.el.classList.contains("on")) return;
+      var h = Math.min(hop[e.a] == null ? 9 : hop[e.a], hop[e.b] == null ? 9 : hop[e.b]);
+      e.el.classList.remove("flash");
+      void e.el.getBoundingClientRect();
+      e.el.style.animationDelay = h * 160 + "ms";
+      e.el.classList.add("flash");
+    });
+  };
+
+  function jitter(i, s) {
+    var a = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453;
+    return a - Math.floor(a);
+  }
+  function columnLayout(row) {
+    return {
+      vertical: true, w: 40, h: n * row, r: 2.6,
+      pos: function (i) { return [26 + Math.round((jitter(i, 1) - 0.5) * 10), Math.round(row / 2 + i * row)]; },
+      loose: function (i) { return [Math.round((jitter(i, 2) - 0.5) * 12), Math.round((jitter(i, 3) - 0.5) * 8)]; }
+    };
+  }
+  var read, current = -1;
+  function useVersion(v) {
+    version = v;
+    toc = D.versions[v].toc;
+    n = toc.length;
+    var art = $("essay-" + v);
+    sections = Array.prototype.slice.call(art.querySelectorAll("section"));
+    read = state[v].read;
+    pairs = makePairs();
+    buildList($("rail-map"));
+    buildList($("sheet-map"));
+    webs = [
+      new Web($("rail-lattice"), columnLayout(26)),
+      new Web($("sheet-lattice"), columnLayout(44)),
+      new Web($("mini-lattice"), {
+        vertical: false, w: 72, h: 18, r: 1.9,
+        pos: function (i) { return [Math.round(4 + i * (64 / Math.max(1, n - 1))), Math.round(11 + (jitter(i, 4) - 0.5) * 6)]; },
+        loose: function (i) { return [Math.round((jitter(i, 5) - 0.5) * 4), Math.round((jitter(i, 6) - 0.5) * 6)]; }
+      })
+    ];
+    links = document.querySelectorAll(".map a");
+    links.forEach(bindLink);
+    current = -2;
+  }
+
+  /* ---------- Reading position ---------- */
+  var rail = $("rail"), topbar = $("topbar"), bar = $("topbar-bar"), topTitle = $("topbar-title");
+  var masthead = document.querySelector(".masthead");
+  var resume = $("resume");
+  var lastSave = 0, ticking = false, switching = false;
+  function save(frac) {
+    var all = {};
+    Object.keys(state).forEach(function (v) { all[v] = state[v]; });
+    store(false, all);
+  }
+
+  function measure() {
+    if (switching) return;
+    var vh = window.innerHeight;
+    var marker = vh * 0.33;
+    var cur = -1, frac = 0, newlyRead = null;
+    for (var i = 0; i < sections.length; i++) {
+      var rect = sections[i].getBoundingClientRect();
+      if (rect.top <= marker) { cur = i; frac = Math.min(1, Math.max(0, (marker - rect.top) / rect.height)); }
+      if (!read[i] && rect.bottom < vh * 0.55) { read[i] = true; newlyRead = i; }
+    }
+    var past = masthead.getBoundingClientRect().bottom < 80;
+    rail.classList.toggle("is-visible", past);
+    topbar.classList.toggle("is-visible", past);
+    if (past && !resume.hidden) resume.hidden = true;
+
+    var max = document.documentElement.scrollHeight - vh;
+    bar.style.width = (max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0) + "%";
+
+    if (cur !== current || newlyRead != null) {
+      current = cur;
+      topTitle.textContent = toc[Math.max(0, cur)].name;
+      links.forEach(function (a) {
+        var i = +a.dataset.index;
+        if (i === cur) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+        a.parentNode.classList.toggle("is-read", read[i]);
+        a.querySelector(".map-state").textContent = i === cur ? " (reading now)" : read[i] ? " (read)" : "";
+      });
+      webs.forEach(function (w) { w.update(read, cur, newlyRead); });
+    }
+    var now = Date.now();
+    if (cur >= 0) { state[version].slug = toc[cur].slug; state[version].frac = frac; }
+    if (now - lastSave > 600 && cur >= 0) { lastSave = now; save(); }
+  }
+  function place_() {
+    var vh = window.innerHeight, marker = vh * 0.33;
+    for (var i = sections.length - 1; i >= 0; i--) {
+      var rect = sections[i].getBoundingClientRect();
+      if (rect.top <= marker) return { i: i, frac: Math.min(1, Math.max(0, (marker - rect.top) / rect.height)) };
+    }
+    return { i: -1, frac: 0 };
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    var done = false;
+    function run() { if (done) return; done = true; ticking = false; measure(); }
+    requestAnimationFrame(run);
+    setTimeout(run, 120);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+
+  function scrollToSection(i, frac) {
+    var el = sections[i];
+    var top = el.getBoundingClientRect().top + window.scrollY;
+    var y = top + (frac || 0) * el.offsetHeight - (frac ? window.innerHeight * 0.33 : 64);
+    window.scrollTo({ top: Math.max(0, y), behavior: reduce.matches ? "auto" : "smooth" });
+  }
+
+  function offerResume() {
+    var st = state[version];
+    if (!st.slug || window.scrollY > 40 || location.hash) return;
+    var si = toc.findIndex(function (s) { return s.slug === st.slug; });
+    var savedFrac = st.frac;
+    if (si > 0 || (si === 0 && savedFrac > 0.15)) {
+      resume.innerHTML = "";
+      resume.appendChild(document.createTextNode("Continue where you left off: " + toc[si].name));
+      var arrow = svgEl("svg", { viewBox: "0 0 12 12", width: 12, height: 12, "aria-hidden": "true" });
+      arrow.appendChild(svgEl("path", { d: "M2 6h8M7 3l3 3-3 3", fill: "none", stroke: "currentColor", "stroke-width": "1.2" }));
+      resume.appendChild(arrow);
+      resume.hidden = false;
+      resume.addEventListener("click", function () {
+        resume.hidden = true;
+        scrollToSection(si, savedFrac);
+      }, { once: true });
+    }
+  }
+
+  /* ---------- Sheet (narrow screens) ---------- */
+  var sheet = $("sheet"), scrim = $("sheet-scrim"), opener = $("sheet-open"), closer = $("sheet-close");
+  function openSheet() {
+    sheet.hidden = false; scrim.hidden = false;
+    requestAnimationFrame(function () { sheet.classList.add("is-open"); scrim.classList.add("is-open"); });
+    opener.setAttribute("aria-expanded", "true");
+    var target = sheet.querySelector('a[aria-current="location"]') || sheet.querySelector(".map a");
+    setTimeout(function () { target.focus({ preventScroll: true }); }, 60);
+    document.addEventListener("keydown", sheetKeys);
+  }
+  function closeSheet(returnFocus) {
+    sheet.classList.remove("is-open"); scrim.classList.remove("is-open");
+    opener.setAttribute("aria-expanded", "false");
+    document.removeEventListener("keydown", sheetKeys);
+    setTimeout(function () { sheet.hidden = true; scrim.hidden = true; }, reduce.matches ? 0 : 320);
+    if (returnFocus) opener.focus({ preventScroll: true });
+  }
+  function sheetKeys(e) {
+    if (e.key === "Escape") { e.preventDefault(); closeSheet(true); return; }
+    if (e.key !== "Tab") return;
+    var f = sheet.querySelectorAll("a, button");
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+  opener.addEventListener("click", openSheet);
+  closer.addEventListener("click", function () { closeSheet(true); });
+  scrim.addEventListener("click", function () { closeSheet(true); });
+
+  function bindLink(a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var i = +a.dataset.index;
+      if (sheet.contains(a)) closeSheet(false);
+      scrollToSection(i, 0);
+      history.replaceState(null, "", "#" + sections[i].id);
+      var h = sections[i].querySelector("h2");
+      h.setAttribute("tabindex", "-1");
+      setTimeout(function () { h.focus({ preventScroll: true }); }, reduce.matches ? 0 : 450);
+    });
+  }
+
+  /* ---------- Term hovers ---------- */
+  var tip = $("tip"), tipLabel = $("tip-label"), tipDef = $("tip-def");
+  var openTerm = null, openedAt = 0, hideTimer = null, showTimer = null;
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  function place(btn) {
+    var rects = btn.getClientRects();
+    var r = rects[0] || btn.getBoundingClientRect();
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    left = Math.max(12, Math.min(left, window.innerWidth - tw - 12));
+    var top = r.bottom + 8;
+    var bottomBar = topbar.classList.contains("is-visible") && getComputedStyle(topbar).display !== "none" ? topbar.offsetHeight : 0;
+    if (top + th > window.innerHeight - 12 - bottomBar) top = r.top - th - 8;
+    tip.style.left = left + window.scrollX + "px";
+    tip.style.top = top + window.scrollY + "px";
+  }
+  function showTerm(btn) {
+    clearTimeout(hideTimer);
+    if (openTerm === btn) return;
+    if (openTerm) hideTerm(true);
+    var d = D.defs[btn.dataset.key];
+    if (!d) return;
+    tipLabel.textContent = d.label;
+    tipDef.textContent = d.def;
+    tip.hidden = false;
+    place(btn);
+    requestAnimationFrame(function () { tip.classList.add("is-open"); });
+    btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-describedby", "tip");
+    openTerm = btn;
+    openedAt = Date.now();
+  }
+  function hideTerm(now) {
+    if (!openTerm) return;
+    openTerm.setAttribute("aria-expanded", "false");
+    openTerm.removeAttribute("aria-describedby");
+    openTerm = null;
+    tip.classList.remove("is-open");
+    if (now || reduce.matches) tip.hidden = true;
+    else hideTimer = setTimeout(function () { if (!openTerm) tip.hidden = true; }, 180);
+  }
+  document.querySelectorAll(".term").forEach(function (btn) {
+    btn.addEventListener("mouseenter", function () {
+      if (!finePointer.matches) return;
+      clearTimeout(hideTimer); clearTimeout(showTimer);
+      showTimer = setTimeout(function () { showTerm(btn); }, 160);
+    });
+    btn.addEventListener("mouseleave", function () {
+      clearTimeout(showTimer);
+      if (document.activeElement === btn) return;
+      hideTimer = setTimeout(function () { if (openTerm === btn) hideTerm(); }, 160);
+    });
+    btn.addEventListener("focus", function () { showTerm(btn); });
+    btn.addEventListener("blur", function () { if (openTerm === btn) hideTerm(); });
+    btn.addEventListener("click", function () {
+      if (openTerm === btn && Date.now() - openedAt > 350) hideTerm();
+      else showTerm(btn);
+    });
+  });
+  tip.addEventListener("mouseenter", function () { clearTimeout(hideTimer); });
+  tip.addEventListener("mouseleave", function () {
+    if (openTerm && document.activeElement !== openTerm) hideTerm();
+  });
+  document.addEventListener("click", function (e) {
+    if (openTerm && !e.target.closest(".term") && !tip.contains(e.target)) hideTerm();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && openTerm) hideTerm(); });
+  window.addEventListener("scroll", function () {
+    if (!openTerm) return;
+    if (finePointer.matches) place(openTerm); else hideTerm();
+  }, { passive: true });
+  window.addEventListener("resize", function () { if (openTerm) place(openTerm); });
+
+  /* ---------- Hero: points settling ---------- */
+  var canvas = $("settle");
+  var hero = (function () {
+    var ctx = canvas.getContext("2d");
+    var W = 0, H = 0, dpr = 1;
+    var pts = [], groups = [], highEdges = [], lowEdges = [], stray = -1;
+    var mode = "higher", t0 = 0, morph = 1, morphFrom = "higher", raf = 0, pulseStart = -1, pulseHop = {};
+    var colors = {};
+    function readColors() { colors = { line: css("--line"), dot: css("--faint"), accent: css("--accent") }; }
+    function rand(seed) { var x = Math.sin(seed * 9301 + 49297) * 233280; return x - Math.floor(x); }
+
+    function layout() {
+      var rect = canvas.getBoundingClientRect();
+      W = rect.width; H = rect.height; dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      var wide = W >= 700;
+      var rx0, rx1, ry0, ry1, centers = [], R;
+      if (wide) {
+        rx0 = W * 0.6; rx1 = W - 28; ry0 = H * 0.5; ry1 = H * 0.96;
+        R = Math.max(22, Math.min(50, (rx1 - rx0 - 36) / 4, (ry1 - ry0 - 40) / 4));
+        var cx = rx0 + R + 6, cy = ry0 + R + 4;
+        centers = [[cx, cy], [cx + 2 * R + 30, cy + R * 0.7], [cx + R + 10, cy + 2 * R + 34]];
+      } else {
+        R = Math.max(12, Math.min(17, (W - 40 - 28) / 6));
+        var y = 14 + R;
+        centers = [[W - 18 - R, y], [W - 18 - 3 * R - 14, y + 4], [W - 18 - 5 * R - 28, y - 2]];
+        rx0 = centers[2][0] - R - 40; rx1 = W - 10; ry0 = 6; ry1 = y + R + 14;
+      }
+      groups = centers.map(function (c) { return { x: c[0], y: c[1], r: R }; });
+      pts = []; highEdges = []; lowEdges = [];
+      var per = wide ? 9 : 6;
+      groups.forEach(function (g, gi) {
+        var start = pts.length;
+        for (var i = 0; i < per; i++) {
+          var s = gi * 31 + i * 7 + 1;
+          var a = rand(s) * Math.PI * 2, rr = Math.sqrt(rand(s + 3)) * (g.r - 7);
+          pts.push({ g: gi, hx: g.x + Math.cos(a) * rr, hy: g.y + Math.sin(a) * rr,
+            sx: rx0 + rand(s + 5) * (rx1 - rx0), sy: ry0 + rand(s + 6) * (ry1 - ry0) });
+        }
+        for (var p = start; p < pts.length; p++) {
+          var near = [];
+          for (var q = start; q < pts.length; q++) if (q !== p) near.push([q, dist(pts[p].hx, pts[p].hy, pts[q].hx, pts[q].hy)]);
+          near.sort(function (a, b) { return a[1] - b[1]; });
+          near.slice(0, 2).forEach(function (m) { if (p < m[0]) highEdges.push([p, m[0]]); else if (!hasEdge(highEdges, m[0], p)) highEdges.push([m[0], p]); });
+        }
+      });
+      // a stray point that fits no group: left dim and unlinked when set higher
+      var best = null;
+      for (var k = 0; k < 40; k++) {
+        var x = rx0 + rand(500 + k) * (rx1 - rx0), y2 = ry0 + rand(600 + k) * (ry1 - ry0);
+        var clear = groups.every(function (g) { return dist(x, y2, g.x, g.y) > g.r + 12; });
+        if (clear) { best = [x, y2]; break; }
+      }
+      if (!best) best = [rx0 + 8, ry1 - 8];
+      stray = pts.length;
+      pts.push({ g: -1, hx: best[0], hy: best[1], sx: best[0], sy: best[1] });
+      // set lower: the same points spread out and linked across everything
+      var cols = Math.ceil(Math.sqrt(pts.length * ((rx1 - rx0) / Math.max(1, ry1 - ry0))));
+      var rows = Math.ceil(pts.length / cols);
+      pts.forEach(function (pt, i) {
+        var c = i % cols, r = Math.floor(i / cols);
+        pt.lx = rx0 + ((c + 0.5 + (rand(i + 900) - 0.5) * 0.7) / cols) * (rx1 - rx0);
+        pt.ly = ry0 + ((r + 0.5 + (rand(i + 950) - 0.5) * 0.7) / rows) * (ry1 - ry0);
+      });
+      pts.forEach(function (pt, i) {
+        var near = [];
+        pts.forEach(function (o, j) { if (j !== i) near.push([j, dist(pt.lx, pt.ly, o.lx, o.ly)]); });
+        near.sort(function (a, b) { return a[1] - b[1]; });
+        var pick = near.slice(0, 3).map(function (m) { return m[0]; });
+        pick.push(near[Math.floor(near.length * 0.6 + rand(i + 1200) * near.length * 0.35)][0]);
+        pick.forEach(function (j) { var a = Math.min(i, j), b = Math.max(i, j); if (!hasEdge(lowEdges, a, b)) lowEdges.push([a, b]); });
+      });
+    }
+    function hasEdge(list, a, b) { for (var i = 0; i < list.length; i++) if (list[i][0] === a && list[i][1] === b) return true; return false; }
+    function dist(a, b, c, d) { var x = a - c, y = b - d; return Math.sqrt(x * x + y * y); }
+    function ease(x) { return 1 - Math.pow(1 - x, 3); }
+
+    function posOf(p, settle, m) {
+      var hx = p.sx + (p.hx - p.sx) * settle, hy = p.sy + (p.hy - p.sy) * settle;
+      var fromLow = morphFrom === "lower";
+      var ax = fromLow ? p.lx : hx, ay = fromLow ? p.ly : hy;
+      var bx = mode === "lower" ? p.lx : hx, by = mode === "lower" ? p.ly : hy;
+      return [ax + (bx - ax) * m, ay + (by - ay) * m];
+    }
+    function draw(now) {
+      var settle = reduce.matches ? 1 : ease(Math.min(1, (now - t0) / 2600));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      var P = pts.map(function (p) { return posOf(p, settle, morph); });
+      var lowW = mode === "lower" ? morph : morphFrom === "lower" ? 1 - morph : 0;
+      var highW = (1 - lowW) * Math.max(0, (settle - 0.55) / 0.45);
+      ctx.lineWidth = 0.6;
+      // group bounds, higher only
+      if (highW > 0) {
+        ctx.strokeStyle = colors.line; ctx.globalAlpha = 0.28 * highW;
+        groups.forEach(function (g) { ctx.beginPath(); ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2); ctx.stroke(); });
+        ctx.globalAlpha = 0.5 * highW;
+        highEdges.forEach(function (e) { line(P[e[0]], P[e[1]]); });
+      }
+      if (lowW > 0) {
+        lowEdges.forEach(function (e) {
+          var glow = 0;
+          if (pulseStart >= 0) {
+            var h = Math.min(pulseHop[e[0]] == null ? 99 : pulseHop[e[0]], pulseHop[e[1]] == null ? 99 : pulseHop[e[1]]);
+            var dt = now - pulseStart - h * 170;
+            if (dt > 0 && dt < 900) glow = Math.sin((dt / 900) * Math.PI);
+          }
+          ctx.strokeStyle = glow > 0.05 ? colors.accent : colors.line;
+          ctx.globalAlpha = (0.42 + 0.45 * glow) * lowW;
+          line(P[e[0]], P[e[1]]);
+        });
+      }
+      pts.forEach(function (p, i) {
+        var dim = i === stray ? 0.28 + 0.5 * lowW : 0.75;
+        ctx.globalAlpha = dim;
+        ctx.fillStyle = colors.dot;
+        ctx.beginPath(); ctx.arc(P[i][0], P[i][1], 1.6, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      var busy = settle < 1 || morph < 1 || (pulseStart >= 0 && now - pulseStart < 4500);
+      if (busy && !reduce.matches) raf = requestAnimationFrame(draw); else raf = 0;
+    }
+    function line(a, b) { ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
+    function kick() { if (!raf) raf = requestAnimationFrame(draw); }
+    function setMode(m, instant) {
+      if (m === mode) return;
+      morphFrom = mode; mode = m; morph = reduce.matches || instant ? 1 : 0;
+      if (instant) { kick(); return; }
+      var start = performance.now();
+      (function step(now) {
+        morph = reduce.matches ? 1 : ease(Math.min(1, (now - start) / 1800));
+        if (morph < 1) requestAnimationFrame(step);
+      })(start);
+      if (m === "lower") {
+        // one touch reaches everything: the pulse spreads through the whole web
+        var from = Math.floor(pts.length / 2);
+        pulseHop = {}; pulseHop[from] = 0;
+        var q = [from];
+        while (q.length) {
+          var x = q.shift();
+          lowEdges.forEach(function (e) {
+            var y = e[0] === x ? e[1] : e[1] === x ? e[0] : null;
+            if (y != null && pulseHop[y] == null) { pulseHop[y] = pulseHop[x] + 1; q.push(y); }
+          });
+        }
+        pulseStart = start + 1500;
+      }
+      kick();
+    }
+    readColors();
+    layout();
+    t0 = performance.now();
+    kick();
+    var rt;
+    window.addEventListener("resize", function () {
+      clearTimeout(rt);
+      rt = setTimeout(function () { layout(); t0 = -1e9; kick(); }, 150);
+    });
+    themeListeners.push(function () { readColors(); kick(); });
+    return { setMode: setMode };
+  })();
+
+  /* ---------- Version scale: Story (set higher) and Structure (set lower) ---------- */
+  var scales = Array.prototype.slice.call(document.querySelectorAll(".scale")), note = $("scale-note"), essays = $("essays");
+  var NOTES = { story: "Told through Maven and Shiloh.", structure: "The same argument as connected claims, without the story." };
+  var stops = Array.prototype.slice.call(document.querySelectorAll(".scale-stop"));
+  function markScale(v) {
+    if (!scales.length) return;
+    scales.forEach(function (sc) { sc.dataset.version = v; });
+    stops.forEach(function (s) {
+      var on = s.dataset.version === v;
+      s.setAttribute("aria-checked", on ? "true" : "false");
+      s.tabIndex = on ? 0 : -1;
+    });
+    if (note) note.textContent = NOTES[v];
+  }
+  function switchTo(v) {
+    if (v === version || !D.versions[v]) return;
+    var from = version;
+    var here = place_();
+    var entry = here.i >= 0 ? D.map[from][here.i] : null;
+    var target = entry ? entry[0] : -1, block = entry ? entry[1] : null;
+    var art0 = $("essay-" + from), art1 = $("essay-" + v);
+    var instant = reduce.matches;
+    switching = true;
+    hideTerm(true);
+    markScale(v);
+    hero.setMode(v === "structure" ? "lower" : "higher");
+    try { localStorage.setItem(VSTORE, v); } catch (e) {}
+    function swap() {
+      art0.hidden = true;
+      art1.hidden = false;
+      useVersion(v);
+      if (target >= 0) {
+        var el = sections[target];
+        var landEl = block != null ? el.querySelector('[data-b="' + block + '"]') : null;
+        var y = landEl
+          ? landEl.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.3
+          : el.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.33 + Math.min(here.frac, 0.15) * el.offsetHeight;
+        window.scrollTo(0, Math.max(0, y));
+      }
+      switching = false;
+      measure();
+      if (!instant) setTimeout(function () { essays.classList.remove("is-dissolving"); }, 30);
+    }
+    if (instant) swap();
+    else { essays.classList.add("is-dissolving"); setTimeout(swap, 420); }
+  }
+  stops.forEach(function (s) {
+    s.addEventListener("click", function () { switchTo(s.dataset.version); });
+    s.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].indexOf(e.key) < 0) return;
+      e.preventDefault();
+      var group = Array.prototype.slice.call(s.parentNode.querySelectorAll(".scale-stop"));
+      var i = group.indexOf(s);
+      var next = group[(i + (e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1) + group.length) % group.length];
+      next.focus();
+      switchTo(next.dataset.version);
+    });
+  });
+
+  // start in the remembered version
+  if (version !== "story") {
+    $("essay-story").hidden = true;
+    $("essay-" + version).hidden = false;
+  }
+  useVersion(version);
+  markScale(version);
+  if (version === "structure") hero.setMode("lower", true);
+  offerResume();
+  measure();
+})();
+
+</script>
+</body>
+</html>
